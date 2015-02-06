@@ -3,4 +3,8 @@ interface Tankable {
   boolean hasCollision(Tankable t);
   void bump();
   boolean stillKickin();
+  float getX();
+  float getY();
+  float getRadius();
+  void show();
 }

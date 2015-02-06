@@ -23,34 +23,48 @@ class Pellet implements Tankable {
     size=5;
   }
 
-  void show() {
+  public void show() {
     stroke(skin);
     fill(skin);
     ellipse(pX, pY, size, size);
   }
 
-  void move() {
+  public void move() {
     if (pY<600-size/2)
       pY+=0.08;
   }
 
-  void update() {
+  public void update() {
     show();
     move();
   }
 
-  boolean hasCollision(Tankable t) {
+  public boolean hasCollision(Tankable t) {
     return false;
     //    if (sqrt(sq(pX-t.X)+sq(t.pY-fishY))<(weight/2+t.size/2)) return true;
     //    else return false;
   }
 
-  boolean stillKickin() {
+  public boolean stillKickin() {
     return true;
   }
 
-  void bump() {
-    translate(random(-20, 20), random(-10, 10));
+  public void bump() {
+    int count=0;
+    if (count<10) {//tap the tank
+      count++;
+      translate(random(-20, 20), random(-10, 10));
+    }
+  }
+
+  public float getX() {
+    return pX;
+  }
+  public float getY() {
+    return pY;
+  }
+  public float getRadius() {
+    return size/2;
   }
 }
 

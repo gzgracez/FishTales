@@ -1,7 +1,7 @@
 ArrayList <Fish> fishTank = new ArrayList <Fish>();
 ArrayList <Bubbles> bubbles = new ArrayList <Bubbles>();
 ArrayList <Pellet> pelletList = new ArrayList <Pellet>();
-FishTank tank=new FishTank();
+FishTank theTank;
 float ammonia=0;
 int count;
 boolean clicked=false;
@@ -36,6 +36,7 @@ void setup() {
   size(800, 600);
   background (0, 150, 255);
   net=loadImage("net2.png");
+  theTank=new FishTank("theTank", width-100, height);
 }
 
 void draw() {
@@ -221,9 +222,11 @@ void draw() {
   else if (ammonia>127 && ammonia<=198) background(127, 119, 255-ammonia);
   else background(127, 119, 57);
   /*if (count<10) {//tap the tank
-    count++;
-    translate(random(-20, 20), random(-10, 10));
-  }*/
+   count++;
+   translate(random(-20, 20), random(-10, 10));
+   }*/
+  if (frame) theTank.showAll();
+  else theTank.updateAll();
   for (int i=0; i<pelletList.size(); i++) {//showing & moving pellets
     pelletList.get(i).show();
     if (frame==false) pelletList.get(i).move();
@@ -316,71 +319,71 @@ void draw() {
   if (clicked==true && fishTank.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.gender + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
 }
 
-void keyPressed() {
-  if (key==' ') {//pause
-    if (frame==false) frame=true;
-    else frame=false;
-  }
-  else if (key=='f') {//Sprinkle food
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(1));
-  }
-  else if (key=='p') {//Sprinkle poison
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(2));
-  }
-  else if (key=='t') {//Tap the Tank
-    for (int i=0; i<fishTank.size(); i++) {
-      fishTank.get(i).speedX*=-1;
-      fishTank.get(i).speedY*=-1;
-    }
-    for (int i=0; i<fishTank.size(); i++) {//death due to tank tapping (based on age)
-      if ((int)fishTank.get(i).age/50==(int)random((fishTank.get(i).age-50)/50, (fishTank.get(i).maxAge+1)/50)) { 
-        fishTank.get(i).isDead=true;
-        fishTank.get(i).death="Death due to over-tapping \nof tank";
-      }
-    }
-    tank.tapTheTank();
-    //count=0;
-  }
-  else if (key=='g') fishTank.add(new Goldfish());//add goldfish
-  else if (key=='w') fishTank.add(new Whale());//add whale
-  else if (key=='h') fishTank.add(new Piranha());//add piranha
-  else if (key=='d') fishTank.add(new Toroidalfin());//add toroidalfin
-  else if (key=='s') {//Sprinkle slowness
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(3));
-  }
-  else if (key=='c') {//clean the tank
-    clean=true;
-    deltaX=0;
-    for (int i=0; i<fishTank.size(); i++) fishTank.get(i).ammonia=0;
-    ammonia=0;
-  }
-  else if (key=='r') {//Reset
-    for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
-    for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
-    for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
-  }
-}
-
-void mouseDragged() {
-  for (int i=0; i<fishTank.size(); i++) {
-    if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2+5)) {
-      if (mouseX>fishTank.get(i).weight/2 && mouseX<600-fishTank.get(i).weight/2 && mouseY>fishTank.get(i).weight/2 && mouseY<600-fishTank.get(i).weight/2) {
-        fishTank.get(i).fishX=mouseX;
-        fishTank.get(i).fishY=mouseY;
-      }
-    }
-  }
-}
+/*void keyPressed() {
+ if (key==' ') {//pause
+ if (frame==false) frame=true;
+ else frame=false;
+ }
+ else if (key=='f') {//Sprinkle food
+ for (int i=0;i<8;i++) pelletList.add(new Pellet(1));
+ }
+ else if (key=='p') {//Sprinkle poison
+ for (int i=0;i<8;i++) pelletList.add(new Pellet(2));
+ }
+ else if (key=='t') {//Tap the Tank
+ for (int i=0; i<fishTank.size(); i++) {
+ fishTank.get(i).speedX*=-1;
+ fishTank.get(i).speedY*=-1;
+ }
+ for (int i=0; i<fishTank.size(); i++) {//death due to tank tapping (based on age)
+ if ((int)fishTank.get(i).age/50==(int)random((fishTank.get(i).age-50)/50, (fishTank.get(i).maxAge+1)/50)) { 
+ fishTank.get(i).isDead=true;
+ fishTank.get(i).death="Death due to over-tapping \nof tank";
+ }
+ }
+ theTank.tapTheTank();
+ //count=0;
+ }
+ else if (key=='g') fishTank.add(new Goldfish());//add goldfish
+ else if (key=='w') fishTank.add(new Whale());//add whale
+ else if (key=='h') fishTank.add(new Piranha());//add piranha
+ else if (key=='d') fishTank.add(new Toroidalfin());//add toroidalfin
+ else if (key=='s') {//Sprinkle slowness
+ for (int i=0;i<8;i++) pelletList.add(new Pellet(3));
+ }
+ else if (key=='c') {//clean the tank
+ clean=true;
+ deltaX=0;
+ for (int i=0; i<fishTank.size(); i++) fishTank.get(i).ammonia=0;
+ ammonia=0;
+ }
+ else if (key=='r') {//Reset
+ for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
+ for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
+ for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
+ }
+ }
+ 
+ void mouseDragged() {
+ for (int i=0; i<fishTank.size(); i++) {
+ if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2+5)) {
+ if (mouseX>fishTank.get(i).weight/2 && mouseX<600-fishTank.get(i).weight/2 && mouseY>fishTank.get(i).weight/2 && mouseY<600-fishTank.get(i).weight/2) {
+ fishTank.get(i).fishX=mouseX;
+ fishTank.get(i).fishY=mouseY;
+ }
+ }
+ }
+ }*/
 
 void mouseClicked() {
   if (sq(mouseX-650)+sq(mouseY-50)<1600) {//feed the fish
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(1));
+    for (int i=0;i<8;i++) theTank.add(new Pellet(1));
   }
   if (sq(mouseX-650)+sq(mouseY-140)<1600) {//poison the fish
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(2));
+    for (int i=0;i<8;i++) theTank.add(new Pellet(2));
   }
   if (sq(mouseX-650)+sq(mouseY-230)<1600) {//slow
-    for (int i=0;i<8;i++) pelletList.add(new Pellet(3));
+    for (int i=0;i<8;i++) theTank.add(new Pellet(3));
   }
   if (sq(mouseX-750)+sq(mouseY-50)<1600) {//tap the tank
     for (int i=0; i<fishTank.size(); i++) {
@@ -394,7 +397,7 @@ void mouseClicked() {
       }
     }
     //count=0;
-    tank.tapTheTank();
+    theTank.tapTheTank();
   }
   if (sq(mouseX-750)+sq(mouseY-140)<1600) {//clean the tank
     clean=true;
