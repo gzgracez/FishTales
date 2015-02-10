@@ -1,17 +1,17 @@
 abstract class Fish {
-  String names[]=loadStrings("names.txt");
-  String name;
-  float speedX, speedY;
-  float fishX, fishY;
-  float weight, maxWeight;
-  int skin;
-  int age=0, maxAge;
-  boolean isDead=false;
-  float ammonia=0;
-  String type;
-  String death="Alive";
-  String gender;
-  boolean breed=false;
+  protected String names[]=loadStrings("names.txt");
+  protected String name;
+  protected float speedX, speedY;
+  protected float fishX, fishY;
+  protected float weight, maxWeight;
+  protected int skin;
+  protected int age=0, maxAge;
+  protected boolean isDead=false;
+  protected float ammonia=0;
+  protected String type;
+  protected String death="Alive";
+  protected String gender;
+  protected boolean breed=false;
 
   Fish() {
     int n=(int)random(names.length);

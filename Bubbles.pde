@@ -1,8 +1,8 @@
 class Bubbles {  
-  float bX, bY;
-  float bSize;
-  float move;
-  float stopX1, stopX2;
+  private float bX, bY;
+  private float bSize;
+  private float move;
+  private float stopX1, stopX2;
 
   Bubbles(float x, float y, float s) {
     bX=x;

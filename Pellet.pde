@@ -1,9 +1,9 @@
 class Pellet implements Tankable {
 
-  float pX, pY;
-  color skin;
-  int type;//1-food, 2-poison, 3-fast
-  int size;
+  private float pX, pY;
+  private color skin;
+  private int type;//1-food, 2-poison, 3-fast
+  private int size;
 
   Pellet() {
     pX=random(600);
