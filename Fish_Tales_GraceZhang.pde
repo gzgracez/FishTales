@@ -349,10 +349,16 @@ void mouseClicked() {
     for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
     for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
   }
+  /*
   if (sq(mouseX-650)+sq(mouseY-440)<1600) fishTank.add(new Goldfish());//add goldfish
-  if (sq(mouseX-650)+sq(mouseY-525)<1600) fishTank.add(new Whale());//add whale
-  if (sq(mouseX-750)+sq(mouseY-440)<1600) fishTank.add(new Piranha());//add piranha
-  if (sq(mouseX-750)+sq(mouseY-525)<1600)  fishTank.add(new Toroidalfin());//add toroidalfin
+   if (sq(mouseX-650)+sq(mouseY-525)<1600) fishTank.add(new Whale());//add whale
+   if (sq(mouseX-750)+sq(mouseY-440)<1600) fishTank.add(new Piranha());//add piranha
+   if (sq(mouseX-750)+sq(mouseY-525)<1600)  fishTank.add(new Toroidalfin());//add toroidalfin
+   */
+  if (sq(mouseX-650)+sq(mouseY-440)<1600) theTank.add(new Goldfish());//add goldfish
+  if (sq(mouseX-650)+sq(mouseY-525)<1600) theTank.add(new Whale());//add whale
+  if (sq(mouseX-750)+sq(mouseY-440)<1600) theTank.add(new Piranha());//add piranha
+  if (sq(mouseX-750)+sq(mouseY-525)<1600)  theTank.add(new Toroidalfin());//add toroidalfin
   for (int i=0; i<fishTank.size(); i++) {//fish info
     if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2)) {
       clicked=true;
@@ -420,3 +426,4 @@ void drawButtons() {
   text("To pause, press the space bar", 700, 585);
   fill(0);
 }
+

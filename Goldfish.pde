@@ -13,6 +13,9 @@ class Goldfish extends Fish {
     type="Goldfish";
   }
 
+  public boolean tryToEat() {
+  }
+
   public void move() {
     if (isDead==false) {//alive
       age++;

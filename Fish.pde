@@ -1,4 +1,4 @@
-abstract class Fish {
+abstract class Fish implements Tankable {
   protected String names[]=loadStrings("names.txt");
   protected String name;
   protected float speedX, speedY;
@@ -55,7 +55,41 @@ abstract class Fish {
     maxWeight=50;
   }
 
-  void show() {
+  public float getX() {
+    return fishX;
+  }
+  public float getY() {
+    return fishY;
+  }
+  public float getRadius() { 
+    return (float)(weight)/2.0;
+  }
+  public boolean stillKickin() {
+    return isDead;
+  }
+  public boolean hasCollision(Tankable t) {
+    //return false;
+    if (t instanceof Fish) {
+      if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
+        println("TRUE");
+        return true;
+      }
+      else return false;
+    }
+    else return false;
+  }
+  public void bump() {
+    int count=0;
+    if (count<10) {//tap the tank
+      count++;
+      translate(random(-20, 20), random(-10, 10));
+    }
+  }
+  public void update() {
+    show();
+    move();
+  }
+  public void show() {
     fill(0);
     textAlign(CENTER);
     text(name, fishX, fishY-weight);
@@ -85,8 +119,9 @@ abstract class Fish {
     }//dead
   }
   abstract void move();
+  abstract boolean tryToEat(Tankable a);
 
-  void changeWeight(float d) {
+  public void changeWeight(float d) {
     if (weight+d<=maxWeight && weight+d>.1*maxWeight) weight+=d;
     else if (weight+d>maxWeight) { 
       death="Death due to obesity";
@@ -98,22 +133,22 @@ abstract class Fish {
     }
   }
 
-  void slow() {
+  public void slow() {
     speedX*=0.8;
     speedY*=0.8;
   }
 
-  boolean hasCollision(Pellet p) {//fish collides with pellet
+  public boolean hasCollision(Pellet p) {//fish collides with pellet
     if (sqrt(sq(p.pX-fishX)+sq(p.pY-fishY))<(weight/2+p.size/2)) return true;
     else return false;
   }//hasCollision
 
-  boolean closeFood(Pellet p) {//fish is close to the food
+  public boolean closeFood(Pellet p) {//fish is close to the food
     if (sqrt(sq(p.pX-fishX)+sq(p.pY-fishY))<=5+(weight/2+p.size/2)) return true;
     else return false;
   }//closeFood
 
-  boolean hasCollision(Fish f) {//fish collides with fish
+  public boolean hasCollision(Fish f) {//fish collides with fish
     if (sqrt(sq(f.fishX-this.fishX)+sq(f.fishY-this.fishY))<(this.weight/2+f.weight/2)) return true;
     else return false;
   }//hasCollision

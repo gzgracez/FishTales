@@ -40,9 +40,12 @@ class Pellet implements Tankable {
   }
 
   public boolean hasCollision(Tankable t) {
-    return false;
-    //    if (sqrt(sq(pX-t.X)+sq(t.pY-fishY))<(weight/2+t.size/2)) return true;
-    //    else return false;
+    //return false;
+    if (sqrt(sq(pX-t.getX())+sq(pY-t.getY()))<((size/2.0)+t.getRadius())) {
+      //println("true");
+      return true;
+    }
+    else return false;
   }
 
   public boolean stillKickin() {
@@ -64,7 +67,7 @@ class Pellet implements Tankable {
     return pY;
   }
   public float getRadius() {
-    return size/2;
+    return (float)size/2.0;
   }
 }
 
