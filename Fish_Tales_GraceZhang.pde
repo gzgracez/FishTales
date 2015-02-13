@@ -258,52 +258,52 @@ void draw() {
   if (clicked==true && fishTank.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.gender + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
 }
 
-/*void keyPressed() {
- if (key==' ') {//pause
- if (frame==false) frame=true;
- else frame=false;
- }
- else if (key=='f') {//Sprinkle food
- for (int i=0;i<8;i++) pelletList.add(new Pellet(1));
- }
- else if (key=='p') {//Sprinkle poison
- for (int i=0;i<8;i++) pelletList.add(new Pellet(2));
- }
- else if (key=='t') {//Tap the Tank
- for (int i=0; i<fishTank.size(); i++) {
- fishTank.get(i).speedX*=-1;
- fishTank.get(i).speedY*=-1;
- }
- for (int i=0; i<fishTank.size(); i++) {//death due to tank tapping (based on age)
- if ((int)fishTank.get(i).age/50==(int)random((fishTank.get(i).age-50)/50, (fishTank.get(i).maxAge+1)/50)) { 
- fishTank.get(i).isDead=true;
- fishTank.get(i).death="Death due to over-tapping \nof tank";
- }
- }
- theTank.tapTheTank();
- //count=0;
- }
- else if (key=='g') fishTank.add(new Goldfish());//add goldfish
- else if (key=='w') fishTank.add(new Whale());//add whale
- else if (key=='h') fishTank.add(new Piranha());//add piranha
- else if (key=='d') fishTank.add(new Toroidalfin());//add toroidalfin
- else if (key=='s') {//Sprinkle slowness
- for (int i=0;i<8;i++) pelletList.add(new Pellet(3));
- }
- else if (key=='c') {//clean the tank
- clean=true;
- deltaX=0;
- for (int i=0; i<fishTank.size(); i++) fishTank.get(i).ammonia=0;
- ammonia=0;
- }
- else if (key=='r') {//Reset
- for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
- for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
- for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
- }
- }
- 
- void mouseDragged() {
+void keyPressed() {
+  if (key==' ') {//pause
+    if (frame==false) frame=true;
+    else frame=false;
+  }
+  else if (key=='f') {//Sprinkle food
+    for (int i=0;i<8;i++) theTank.add(new Pellet(1));
+  }
+  else if (key=='p') {//Sprinkle poison
+    for (int i=0;i<8;i++) theTank.add(new Pellet(2));
+  }
+  else if (key=='t') {//Tap the Tank
+    for (int i=0; i<fishTank.size(); i++) {
+      fishTank.get(i).speedX*=-1;
+      fishTank.get(i).speedY*=-1;
+    }
+    for (int i=0; i<fishTank.size(); i++) {//death due to tank tapping (based on age)
+      if ((int)fishTank.get(i).age/50==(int)random((fishTank.get(i).age-50)/50, (fishTank.get(i).maxAge+1)/50)) { 
+        fishTank.get(i).isDead=true;
+        fishTank.get(i).death="Death due to over-tapping \nof tank";
+      }
+    }
+    theTank.tapTheTank();
+    //count=0;
+  }
+  else if (key=='g') theTank.add(new Goldfish());//add goldfish
+  else if (key=='w') theTank.add(new Whale());//add whale
+  else if (key=='h') theTank.add(new Piranha());//add piranha
+  else if (key=='d') theTank.add(new Toroidalfin());//add toroidalfin
+  else if (key=='s') {//Sprinkle slowness
+    for (int i=0;i<8;i++) theTank.add(new Pellet(3));
+  }
+  else if (key=='c') {//clean the tank
+    clean=true;
+    deltaX=0;
+    for (int i=0; i<fishTank.size(); i++) fishTank.get(i).ammonia=0;
+    ammonia=0;
+  }
+  else if (key=='r') {//Reset
+    for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
+    for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
+    for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
+  }
+}
+
+/* void mouseDragged() {
  for (int i=0; i<fishTank.size(); i++) {
  if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2+5)) {
  if (mouseX>fishTank.get(i).weight/2 && mouseX<600-fishTank.get(i).weight/2 && mouseY>fishTank.get(i).weight/2 && mouseY<600-fishTank.get(i).weight/2) {
@@ -345,24 +345,20 @@ void mouseClicked() {
     ammonia=0;
   }
   if (sq(mouseX-750)+sq(mouseY-230)<1600) {//Reset
-    for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
+    /*for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
     for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
-    for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);
+    for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);*/
   }
-  /*
-  if (sq(mouseX-650)+sq(mouseY-440)<1600) fishTank.add(new Goldfish());//add goldfish
-   if (sq(mouseX-650)+sq(mouseY-525)<1600) fishTank.add(new Whale());//add whale
-   if (sq(mouseX-750)+sq(mouseY-440)<1600) fishTank.add(new Piranha());//add piranha
-   if (sq(mouseX-750)+sq(mouseY-525)<1600)  fishTank.add(new Toroidalfin());//add toroidalfin
-   */
   if (sq(mouseX-650)+sq(mouseY-440)<1600) theTank.add(new Goldfish());//add goldfish
   if (sq(mouseX-650)+sq(mouseY-525)<1600) theTank.add(new Whale());//add whale
   if (sq(mouseX-750)+sq(mouseY-440)<1600) theTank.add(new Piranha());//add piranha
   if (sq(mouseX-750)+sq(mouseY-525)<1600)  theTank.add(new Toroidalfin());//add toroidalfin
-  for (int i=0; i<fishTank.size(); i++) {//fish info
-    if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2)) {
-      clicked=true;
-      fishClick=fishTank.get(i);
+  for (int i=0; i<theTank.items.size(); i++) {//fish info
+    if (theTank.items.get(i) instanceof Fish) {
+      if (sq(mouseX-theTank.items.get(i).getX())+sq(mouseY-theTank.items.get(i).getY())<sq(theTank.items.get(i).getRadius())) {
+        clicked=true;
+        fishClick=(Fish)theTank.items.get(i);
+      }
     }
   }
 }

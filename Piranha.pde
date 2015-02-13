@@ -12,6 +12,11 @@ class Piranha extends Fish {
     weight=random(10, 15);
     type="Piranha";
   }
+  
+  public boolean tryToEat(Tankable a) {
+    return true;
+  }
+  
   public void move() {
     if (isDead==false) {//alive
       age++;

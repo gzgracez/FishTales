@@ -12,6 +12,11 @@ class Whale extends Fish {
     weight=random (14, 20);
     type="Whale";
   }
+  
+  public boolean tryToEat(Tankable a) {
+    return true;
+  }
+  
   public void move() {
     if (isDead==false) {//alive
       age++;

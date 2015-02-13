@@ -84,11 +84,16 @@ abstract class Fish implements Tankable {
       count++;
       translate(random(-20, 20), random(-10, 10));
     }
+    if ((int)age/50==(int)random((age-50)/50, (maxAge+1)/50)) { 
+      isDead=true;
+      death="Death due to over-tapping \nof tank";
+    }
   }
   public void update() {
     show();
     move();
   }
+  
   public void show() {
     fill(0);
     textAlign(CENTER);

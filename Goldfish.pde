@@ -13,7 +13,8 @@ class Goldfish extends Fish {
     type="Goldfish";
   }
 
-  public boolean tryToEat() {
+  public boolean tryToEat(Tankable a) {
+    return true;
   }
 
   public void move() {

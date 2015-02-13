@@ -54,6 +54,10 @@ class FishTank {
   public int cleanTheTank() {
     return 1;
   }
+  public void reset(){
+    for (Tankable t: items) {
+    }
+  }
   public boolean add(Tankable t) {
     return items.add(t);
   }
@@ -61,4 +65,3 @@ class FishTank {
     return items.remove(t);
   }
 }
-
