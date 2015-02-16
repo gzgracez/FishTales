@@ -7,9 +7,8 @@ class Toroidalfin extends Goldfish {
     type="Toroidalfin";
   }
 
-  public boolean tryToEat(Tankable a) {
-    return true;
-  }
+  //public boolean tryToEat(Tankable a) {
+  //}
 
   void show() {
     fill(0);

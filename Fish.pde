@@ -68,10 +68,8 @@ abstract class Fish implements Tankable {
     return isDead;
   }
   public boolean hasCollision(Tankable t) {
-    //return false;
-    if (t instanceof Fish) {
-      if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
-        println("TRUE");
+    if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
+      if (stillKickin() && t.stillKickin()) {
         return true;
       } else return false;
     } else return false;

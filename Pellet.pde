@@ -39,13 +39,11 @@ class Pellet implements Tankable {
     move();
   }
 
-  public boolean hasCollision(Tankable t) {
+  public boolean hasCollision(Tankable p) {
     //return false;
-    if (sqrt(sq(pX-t.getX())+sq(pY-t.getY()))<((size/2.0)+t.getRadius())) {
-      //println("true");
+    if (sqrt(sq(pX-p.getX())+sq(pY-p.getY()))<(getRadius()+p.getRadius())) {
       return true;
-    }
-    else return false;
+    } else return false;
   }
 
   public boolean stillKickin() {
@@ -53,11 +51,6 @@ class Pellet implements Tankable {
   }
 
   public void bump() {
-    int count=0;
-    if (count<10) {//tap the tank
-      count++;
-      translate(random(-20, 20), random(-10, 10));
-    }
   }
 
   public float getX() {

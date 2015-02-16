@@ -27,7 +27,6 @@ ArrayList <Bubbles> bubbles = new ArrayList <Bubbles>();
 ArrayList <Pellet> pelletList = new ArrayList <Pellet>();
 FishTank theTank;
 float ammonia=0;
-int count;
 boolean clicked=false;
 Fish fishClick;
 boolean frame=false;
@@ -208,28 +207,22 @@ void draw() {
   else if (ammonia>31 && ammonia<=127) background(ammonia, 119, 255-ammonia);
   else if (ammonia>127 && ammonia<=198) background(127, 119, 255-ammonia);
   else background(127, 119, 57);
-  /*if (count<10) {//tap the tank
-   count++;
-   translate(random(-20, 20), random(-10, 10));
-   }*/
+
   if (frame) theTank.showAll();
   else theTank.updateAll();
+
   for (int i=0; i<bubbles.size (); i++) {//showing & moving bubbles
     bubbles.get(i).show();
     if (frame==false) bubbles.get(i).move();
     if (bubbles.get(i).bY<=-bubbles.get(i).bSize) bubbles.remove(i);
   }
-  for (int i=0; i<fishTank.size (); i++) {//showing & moving fish
-    fishTank.get(i).show();
-    if (frame==false)fishTank.get(i).move();
-  }
+
   if (clicked==true && fishTank.contains(fishClick)==true) {
     noStroke();
     if (fishClick instanceof Toroidalfin) fill(255, 0, 0, 127);
     else fill(fishClick.skin, 127);
     ellipse (fishClick.fishX, fishClick.fishY, 5*fishClick.weight/3, 5*fishClick.weight/3);
   }
-  //resetMatrix();
 
   if (clean==true) {
     deltaX+=5;
@@ -268,9 +261,7 @@ void keyPressed() {
     for (int i=0; i<fishTank.size (); i++) fishTank.get(i).ammonia=0;
     ammonia=0;
   } else if (key=='r') {//Reset
-    for (int i=fishTank.size ()-1; i>=0; i--) fishTank.remove(i);
-    for (int i=pelletList.size ()-1; i>=0; i--) pelletList.remove(i);
-    for (int i=bubbles.size ()-1; i>=0; i--) bubbles.remove(i);
+    theTank.reset();
   }
 }
 
@@ -296,17 +287,6 @@ void mouseClicked() {
     for (int i=0; i<8; i++) theTank.add(new Pellet(3));
   }
   if (sq(mouseX-750)+sq(mouseY-50)<1600) {//tap the tank
-    for (int i=0; i<fishTank.size (); i++) {
-      fishTank.get(i).speedX*=-1;
-      fishTank.get(i).speedY*=-1;
-    }
-    for (int i=0; i<fishTank.size (); i++) {//death due to tank tapping (based on age)
-      if ((int)fishTank.get(i).age/50==(int)random((fishTank.get(i).age-50)/50, (fishTank.get(i).maxAge+1)/50)) { 
-        fishTank.get(i).isDead=true;
-        fishTank.get(i).death="Death due to over-tapping \nof tank";
-      }
-    }
-    //count=0;
     theTank.tapTheTank();
   }
   if (sq(mouseX-750)+sq(mouseY-140)<1600) {//clean the tank
@@ -316,9 +296,7 @@ void mouseClicked() {
     ammonia=0;
   }
   if (sq(mouseX-750)+sq(mouseY-230)<1600) {//Reset
-    /*for (int i=fishTank.size()-1; i>=0; i--) fishTank.remove(i);
-     for (int i=pelletList.size()-1; i>=0; i--) pelletList.remove(i);
-     for (int i=bubbles.size()-1; i>=0; i--) bubbles.remove(i);*/
+    theTank.reset();
   }
   if (sq(mouseX-650)+sq(mouseY-440)<1600) theTank.add(new Goldfish());//add goldfish
   if (sq(mouseX-650)+sq(mouseY-525)<1600) theTank.add(new Whale());//add whale

@@ -13,8 +13,14 @@ class Piranha extends Fish {
     type="Piranha";
   }
   
-  public boolean tryToEat(Tankable a) {
-    return true;
+  public boolean tryToEat(Tankable p) {
+    if (p instanceof Pellet) {
+      Pellet p1=(Pellet)p;
+      if (p1.type==1) changeWeight(5);
+      else if (p1.type==2) changeWeight(-10);
+      else if (p1.type==3) slow();
+      return true;
+    } else return false;
   }
   
   public void move() {
