@@ -73,17 +73,12 @@ abstract class Fish implements Tankable {
       if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
         println("TRUE");
         return true;
-      }
-      else return false;
-    }
-    else return false;
+      } else return false;
+    } else return false;
   }
   public void bump() {
-    int count=0;
-    if (count<10) {//tap the tank
-      count++;
-      translate(random(-20, 20), random(-10, 10));
-    }
+    speedX*=-1;
+    speedY*=-1;
     if ((int)age/50==(int)random((age-50)/50, (maxAge+1)/50)) { 
       isDead=true;
       death="Death due to over-tapping \nof tank";
@@ -93,7 +88,7 @@ abstract class Fish implements Tankable {
     show();
     move();
   }
-  
+
   public void show() {
     fill(0);
     textAlign(CENTER);
@@ -131,8 +126,7 @@ abstract class Fish implements Tankable {
     else if (weight+d>maxWeight) { 
       death="Death due to obesity";
       isDead=true;
-    }
-    else if (weight+d<=.1*maxWeight) { 
+    } else if (weight+d<=.1*maxWeight) { 
       death="Death due to emaciation";
       isDead=true;
     }

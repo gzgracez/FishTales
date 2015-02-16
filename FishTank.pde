@@ -4,6 +4,8 @@ class FishTank {
   private int ammoniaLevel;
   private float tWidth, tHeight;
   private String name;
+  private boolean tapped;
+  private int tapCount;
 
   FishTank(String name, float w, float h) {
     this.name=name;
@@ -13,19 +15,25 @@ class FishTank {
   }
 
   public void updateAll() {
-    for (Tankable t: items) {
+    for (Tankable t : items) {
+      if (tapCount>=10) tapped=false;
+      if (tapped && tapCount<10) {
+        t.bump();
+        tapCount++;
+        translate(random(-20, 20), random(-10, 10));
+      }
       t.update();
+      resetMatrix();
     }
-    for (Tankable a: items) {
-      for (Tankable b: items) {
+    for (Tankable a : items) {
+      for (Tankable b : items) {
         if (a!=b) {
-          
         }
       }
     }
   }
   public void showAll() {
-    for (Tankable t: items) {
+    for (Tankable t : items) {
       t.show();
     }
   }
@@ -34,19 +42,8 @@ class FishTank {
     return ammoniaLevel;
   }
   public void tapTheTank() {
-    int count=0;
-    /*int count=0;
-     if (count<10) {//tap the tank
-     count++;
-     translate(random(-20, 20), random(-10, 10));
-     }*/
-    for (Tankable t: items) {
-      t.bump();
-      /*if (count<10) {//tap the tank
-        count++;
-        translate(random(-20, 20), random(-10, 10));
-      }*/
-    }
+    tapped=true;
+    tapCount=0;
   }
   public int waterLevel() {
     return 1;
@@ -54,8 +51,8 @@ class FishTank {
   public int cleanTheTank() {
     return 1;
   }
-  public void reset(){
-    for (Tankable t: items) {
+  public void reset() {
+    for (Tankable t : items) {
     }
   }
   public boolean add(Tankable t) {
@@ -65,3 +62,4 @@ class FishTank {
     return items.remove(t);
   }
 }
+
