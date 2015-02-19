@@ -65,15 +65,16 @@ abstract class Fish implements Tankable {
     return (float)(weight)/2.0;
   }
   public boolean stillKickin() {
-    return isDead;
+    return !isDead;
   }
+
   public boolean hasCollision(Tankable t) {
     if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
-      if (stillKickin() && t.stillKickin()) {
-        return true;
-      } else return false;
-    } else return false;
+      return true;
+    } 
+    else return false;
   }
+
   public void bump() {
     speedX*=-1;
     speedY*=-1;
@@ -124,7 +125,8 @@ abstract class Fish implements Tankable {
     else if (weight+d>maxWeight) { 
       death="Death due to obesity";
       isDead=true;
-    } else if (weight+d<=.1*maxWeight) { 
+    } 
+    else if (weight+d<=.1*maxWeight) { 
       death="Death due to emaciation";
       isDead=true;
     }

@@ -43,7 +43,8 @@ class Pellet implements Tankable {
     //return false;
     if (sqrt(sq(pX-p.getX())+sq(pY-p.getY()))<(getRadius()+p.getRadius())) {
       return true;
-    } else return false;
+    } 
+    else return false;
   }
 
   public boolean stillKickin() {

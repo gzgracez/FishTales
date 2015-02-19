@@ -21,17 +21,18 @@ class FishTank {
     }
     resetMatrix();
     for (int a=0; a<items.size (); a++) {
-      for (int b=0; b<items.size (); b++) {
-        if (items.get(a)!=items.get(b)) {
-          if (items.get(a).hasCollision(items.get(b))) {
-            println("COLLISION");
-            if (items.get(a) instanceof Fish) {
-              println("a IS FISH");
-              Fish f1=(Fish)items.get(a);
-              if (f1.tryToEat(items.get(b))) {
-                items.remove(items.get(b));
-                b--;
-                println("FISH");
+      Tankable t1=items.get(a);
+      if (t1.stillKickin()) {
+        for (int b=0; b<items.size (); b++) {
+          Tankable t2=items.get(b);
+          if (t1!=t2) {
+            if (t1.hasCollision(t2)) {
+              if (t1 instanceof Fish) {
+                println("a IS FISH");
+                if (((Fish)t1).tryToEat(t2)) {
+                  items.remove(t2);
+                  b--;
+                }
               }
             }
           }

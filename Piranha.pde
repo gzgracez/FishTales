@@ -12,7 +12,7 @@ class Piranha extends Fish {
     weight=random(10, 15);
     type="Piranha";
   }
-  
+
   public boolean tryToEat(Tankable p) {
     if (p instanceof Pellet) {
       Pellet p1=(Pellet)p;
@@ -20,9 +20,10 @@ class Piranha extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } else return false;
+    } 
+    else return false;
   }
-  
+
   public void move() {
     if (isDead==false) {//alive
       age++;
