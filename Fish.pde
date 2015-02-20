@@ -64,6 +64,10 @@ abstract class Fish implements Tankable {
   public float getRadius() { 
     return (float)(weight)/2.0;
   }
+  public void changeSpeeds(){
+    speedX*=-1;
+    speedY*=-1;
+  }
   public boolean stillKickin() {
     return !isDead;
   }

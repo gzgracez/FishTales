@@ -7,7 +7,7 @@ class Goldfish extends Fish {
     fishY=random(50, 550);
     speedX=random(-3, 3);
     if (speedX==0) speedX=random(-3, 3);
-    speedY=sqrt(9-sq(speedX));
+    speedY=sqrt(9-sq(speedX))*pow(-1,(int)random(1,5));
     skin=color(random(233, 255), random(165), random(128));
     weight=random(6, 10);
     type="Goldfish";
@@ -21,7 +21,16 @@ class Goldfish extends Fish {
       else if (p1.type==3) slow();
       return true;
     } 
+    else if (p instanceof Goldfish) {
+      bounce((Fish)p);
+      return false;
+    }
     else return false;
+  }
+
+  public void bounce(Fish t) {
+    t.changeSpeeds();
+    this.changeSpeeds();
   }
 
   public void move() {

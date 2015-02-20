@@ -52,6 +52,7 @@ class Pellet implements Tankable {
   }
 
   public void bump() {
+    
   }
 
   public float getX() {

@@ -7,7 +7,7 @@ class Piranha extends Fish {
     fishY=random(50, 550);
     speedX=random(-2, 2);
     if (speedX==0) speedX=random(-2, 2);
-    speedY=sqrt(4-sq(speedX));
+    speedY=sqrt(4-sq(speedX))*pow(-1,(int)random(1,5));
     skin=color(random(224), random(255), random(112, 255));
     weight=random(10, 15);
     type="Piranha";

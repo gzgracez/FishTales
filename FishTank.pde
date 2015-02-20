@@ -33,6 +33,10 @@ class FishTank {
                   items.remove(t2);
                   b--;
                 }
+              }//end - t1 instanceof fish  
+              else if (t1 instanceof Pellet) {
+                t1.bump();
+                t2.bump();
               }
             }
           }
