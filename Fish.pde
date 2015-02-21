@@ -64,7 +64,7 @@ abstract class Fish implements Tankable {
   public float getRadius() { 
     return (float)(weight)/2.0;
   }
-  public void changeSpeeds(){
+  public void changeSpeeds() {
     speedX*=-1;
     speedY*=-1;
   }
@@ -139,6 +139,11 @@ abstract class Fish implements Tankable {
   public void slow() {
     speedX*=0.8;
     speedY*=0.8;
+  }
+
+  public void bounce() {
+    speedX*=-1;
+    speedY*=-1;
   }
 
   public boolean hasCollision(Pellet p) {//fish collides with pellet

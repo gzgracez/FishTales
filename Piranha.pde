@@ -7,7 +7,7 @@ class Piranha extends Fish {
     fishY=random(50, 550);
     speedX=random(-2, 2);
     if (speedX==0) speedX=random(-2, 2);
-    speedY=sqrt(4-sq(speedX))*pow(-1,(int)random(1,5));
+    speedY=sqrt(4-sq(speedX))*pow(-1, (int)random(1, 5));
     skin=color(random(224), random(255), random(112, 255));
     weight=random(10, 15);
     type="Piranha";
@@ -21,6 +21,12 @@ class Piranha extends Fish {
       else if (p1.type==3) slow();
       return true;
     } 
+    else if (p instanceof Piranha) {
+      if (!this.isDead && p.stillKickin()) {
+        this.bounce();
+      }
+      return false;
+    }
     else return false;
   }
 
