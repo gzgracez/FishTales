@@ -12,6 +12,7 @@ abstract class Fish implements Tankable {
   protected String death="Alive";
   protected String gender;
   protected boolean breed=false;
+  protected FishTank tank=theTank;
 
   Fish() {
     int n=(int)random(names.length);
@@ -20,7 +21,8 @@ abstract class Fish implements Tankable {
     else gender="Female";
   }
 
-  Fish(String n, float sX, float sY, float x, float y, float z, int c) {
+  Fish(FishTank t, String n, float sX, float sY, float x, float y, float z, int c) {
+    tank=t;
     name=n;
     speedX=sX;
     speedY=sY;
@@ -31,7 +33,8 @@ abstract class Fish implements Tankable {
     maxWeight=50;
   }
 
-  Fish(String n, float s, float z, int c) {
+  Fish(FishTank t, String n, float s, float z, int c) {
+    tank=t;
     name=n;
     speedX=s; 
     speedY=s;
@@ -61,12 +64,15 @@ abstract class Fish implements Tankable {
   public float getY() {
     return fishY;
   }
+  public String getGender() {
+    return gender;
+  }
   public float getRadius() { 
     return (float)(weight)/2.0;
   }
-  public void changeSpeeds() {
-    speedX*=-1;
-    speedY*=-1;
+  public void changeSpeeds(float x, float y) {
+    speedX=x;
+    speedY=y;
   }
   public boolean stillKickin() {
     return !isDead;
@@ -75,8 +81,7 @@ abstract class Fish implements Tankable {
   public boolean hasCollision(Tankable t) {
     if (sqrt(sq(t.getX()-fishX)+sq(t.getY()-fishY))<this.getRadius()+t.getRadius()) {
       return true;
-    } 
-    else return false;
+    } else return false;
   }
 
   public void bump() {
@@ -123,14 +128,14 @@ abstract class Fish implements Tankable {
   }
   abstract void move();
   abstract boolean tryToEat(Tankable a);
+  abstract void bounce(Tankable t);
 
   public void changeWeight(float d) {
     if (weight+d<=maxWeight && weight+d>.1*maxWeight) weight+=d;
     else if (weight+d>maxWeight) { 
       death="Death due to obesity";
       isDead=true;
-    } 
-    else if (weight+d<=.1*maxWeight) { 
+    } else if (weight+d<=.1*maxWeight) { 
       death="Death due to emaciation";
       isDead=true;
     }
@@ -139,11 +144,6 @@ abstract class Fish implements Tankable {
   public void slow() {
     speedX*=0.8;
     speedY*=0.8;
-  }
-
-  public void bounce() {
-    speedX*=-1;
-    speedY*=-1;
   }
 
   public boolean hasCollision(Pellet p) {//fish collides with pellet

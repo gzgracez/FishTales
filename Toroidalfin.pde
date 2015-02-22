@@ -6,6 +6,14 @@ class Toroidalfin extends Goldfish {
     fishY=random(50, 550);
     type="Toroidalfin";
   }
+  Toroidalfin(FishTank t) {
+    super();
+    tank=t;
+    skin=color(255, 0);
+    fishX=random(50, 550);
+    fishY=random(50, 550);
+    type="Toroidalfin";
+  }
 
   //public boolean tryToEat(Tankable a) {
   //}

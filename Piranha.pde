@@ -12,6 +12,20 @@ class Piranha extends Fish {
     weight=random(10, 15);
     type="Piranha";
   }
+  Piranha(FishTank t) {
+    super();//calls the Fish() constructor to initialize all the common data
+    tank=t;
+    maxAge=10000;
+    maxWeight=50;
+    fishX=random(50, 550);
+    fishY=random(50, 550);
+    speedX=random(-2, 2);
+    if (speedX==0) speedX=random(-2, 2);
+    speedY=sqrt(4-sq(speedX))*pow(-1, (int)random(1, 5));
+    skin=color(random(224), random(255), random(112, 255));
+    weight=random(10, 15);
+    type="Piranha";
+  }
 
   public boolean tryToEat(Tankable p) {
     if (p instanceof Pellet) {
@@ -23,11 +37,19 @@ class Piranha extends Fish {
     } 
     else if (p instanceof Piranha) {
       if (!this.isDead && p.stillKickin()) {
-        this.bounce();
+        this.bounce(p);
       }
       return false;
     }
     else return false;
+  }
+  
+  public void bounce(Tankable t) {
+    Fish tFish=(Fish)t;
+    this.speedX=random(-2, 2);
+    if (this.speedX==0) this.speedX=random(-2, 2);
+    this.speedY=sqrt(4-sq(this.speedX))*pow(-1, (int)random(1, 5));
+    tFish.changeSpeeds(-1*this.speedX, -1*this.speedY);
   }
 
   public void move() {
