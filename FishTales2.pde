@@ -1,15 +1,14 @@
 /*
-Program: Fish Tank 2.0
+ Program: Fish Tank 2.0
  Author: Grace Zhang
- Date: 2/16/15
+ Date: 2/22/15
  Notes:
- Tail that grows along with the fish & follows the direction of movement
- Tail flaps
+ Tail that grows and flaps along with the fish & follows the direction of movement
  Bubbles come out of fish, then float to the top of the tank (They also move left & right)
  The closer a Fish is to maxAge, the more likely that "Tapping the Tank" will kill it
  "Clean the Tank" (net to get rid of dead fish)-fish movement produces ammonia; if not cleaned, fish start gradually dying after a set amount of time
  Circular buttons
- Gender attribute added to the Fish class; when a male & female of the same breed meet, a new fish of that breed is born
+ Gender attribute added to the Fish class; when a male & female of the same breed meet, there is a 20% change that a new fish of that breed is born
  Fish follow food & poison
  "Slowness" pellets
  Pellets fall
@@ -18,7 +17,6 @@ Program: Fish Tank 2.0
  Keyboard (corresponding keys are written on the button; space bar to pause)
  Reset button to completely reset the screen
  Tap the tank shakes the tank (in addition to making the fish go in opposite directions)
- Goldfish & toroidalfins change directions after collision, but if 2 goldfish of opposite genders collide, they'll breed. Same with toroidalfins
  The fish only eat each other if the predator's size is greater than or equal to that of the prey
  */
 
@@ -155,16 +153,16 @@ void keyPressed() {
   }
 }
 
-/* void mouseDragged() {
- for (int i=0; i<fishTank.size(); i++) {
- if (sq(mouseX-fishTank.get(i).fishX)+sq(mouseY-fishTank.get(i).fishY)<sq(fishTank.get(i).weight/2+5)) {
- if (mouseX>fishTank.get(i).weight/2 && mouseX<600-fishTank.get(i).weight/2 && mouseY>fishTank.get(i).weight/2 && mouseY<600-fishTank.get(i).weight/2) {
- fishTank.get(i).fishX=mouseX;
- fishTank.get(i).fishY=mouseY;
- }
- }
- }
- }*/
+void mouseDragged() {
+  for (int i=0; i<theTank.items.size (); i++) {
+    if (sq(mouseX-theTank.items.get(i).getX())+sq(mouseY-theTank.items.get(i).getY())<sq(theTank.items.get(i).getRadius()+5)) {
+      if (mouseX>theTank.items.get(i).getRadius() && mouseX<600-theTank.items.get(i).getRadius() && mouseY>theTank.items.get(i).getRadius() && mouseY<600-theTank.items.get(i).getRadius()) {
+        Fish tankFish=(Fish)theTank.items.get(i);
+        tankFish.setFishPos(mouseX, mouseY);
+      }
+    }
+  }
+}
 
 void mouseClicked() {
   if (sq(mouseX-650)+sq(mouseY-50)<1600) {//feed the fish

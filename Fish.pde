@@ -74,6 +74,10 @@ abstract class Fish implements Tankable {
     speedX=x;
     speedY=y;
   }
+  public void setFishPos(float x, float y) {
+    fishX=x;
+    fishY=y;
+  }
   public boolean stillKickin() {
     return !isDead;
   }
