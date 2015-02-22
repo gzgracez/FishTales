@@ -28,17 +28,16 @@ class FishTank {
           if (t1!=t2) {
             if (t1.hasCollision(t2)) {
               if (t1 instanceof Fish) {
-                println("a IS FISH");
                 if (((Fish)t1).tryToEat(t2)) {
                   items.remove(t2);
                   b--;
                 }
               }//end - t1 instanceof fish  
-              else if (t1 instanceof Pellet) {
+              else if (t1 instanceof Pellet && t2 instanceof Pellet) {
                 t1.bump();
                 t2.bump();
               }
-            }
+            }//end collision has happened
           }
         }
       }
@@ -70,6 +69,10 @@ class FishTank {
     return 1;
   }
 
+  public int tankSize() {
+    return items.size();
+  }
+
   public void reset() {
     for (int i=items.size ()-1; i>=0; i--) {
       items.remove(i);
@@ -87,7 +90,10 @@ class FishTank {
     if (tapCount>=11) tapped=false;
     if (tapped && tapCount<11) {
       for (Tankable t : items) {
-        if (t instanceof Fish) t.bump();
+        if (t instanceof Fish) {
+          println( "shakeTank bumped! ugh");
+          t.bump();
+        }
       }
       tapCount++;
       translate(random(-20, 20), random(-10, 10));

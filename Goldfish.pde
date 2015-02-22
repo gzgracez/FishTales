@@ -34,7 +34,7 @@ class Goldfish extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } else if (p instanceof Goldfish) {
+    } else if (p instanceof Goldfish && !(p instanceof Toroidalfin)) {
       if (!this.isDead && p.stillKickin()) {
         Goldfish pFish=(Goldfish)p;
         if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
@@ -42,17 +42,25 @@ class Goldfish extends Fish {
           if (ranNum<0.8) {
             this.bounce(p);
           } else { 
-            tank.add(new Goldfish());
+            if (this.breed==false || pFish.breed==false) {
+              println("BREED");
+              println(theTank.tankSize());
+              tank.add(new Goldfish());
+              this.breed=true;
+              pFish.breed=true;
+            } else {
+              this.bounce(p);
+            }
           }
         } //end can breed
         else {
           this.bounce(p);
         } //end can't breed
-      }
+      }//both alive
       return false;
     } else return false;
   }
-  
+
   public void bounce(Tankable t) {
     Fish tFish=(Fish)t;
     this.speedX=random(-3, 3);

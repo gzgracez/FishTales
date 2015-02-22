@@ -34,10 +34,37 @@ class Whale extends Fish {
       return true;
     } else if (p instanceof Whale) {
       if (!this.isDead && p.stillKickin()) {
-        this.bounce(p);
+        Whale pFish=(Whale)p;
+        if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
+          float ranNum=random(0, 1);
+          if (ranNum<0.8) {
+            this.bounce(p);
+          } else { 
+            if (this.breed==false || pFish.breed==false) {
+              println("BREED");
+              println(theTank.tankSize());
+              tank.add(new Whale());
+              this.breed=true;
+              pFish.breed=true;
+            } else {
+              this.bounce(p);
+            }
+          }
+        } //end can breed
+        else {
+          this.bounce(p);
+        } //end can't breed
       }
       return false;
-    } else return false;
+    }//collide with whale
+    else {
+      Fish pFish=(Fish)p;
+      if (this.weight>=pFish.weight) {
+        this.changeWeight(pFish.getRadius());
+        return true;
+      }
+      return false;
+    }
   }
 
   public void bounce(Tankable t) {

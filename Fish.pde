@@ -91,6 +91,7 @@ abstract class Fish implements Tankable {
       isDead=true;
       death="Death due to over-tapping \nof tank";
     }
+    println("bump for fish");
   }
   public void update() {
     show();

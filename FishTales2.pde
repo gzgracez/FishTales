@@ -93,115 +93,6 @@ void draw() {
         }
       }
     }//end detecting fish-pellet collision & fish closeness to food
-    for (int i=0; i<fishTank.size (); i++) {//eat & breed
-      Fish f1 = fishTank.get(i);
-      for (int j=i+1; j<fishTank.size (); j++) {
-        Fish f2=fishTank.get(j);
-        if (f1.hasCollision(f2) == true && f1.isDead==false && f2.isDead==false) {//if fish collide
-          if (f1 instanceof Whale) {//whale
-            if (!(f2 instanceof Whale) && f1.weight>=f2.weight) {
-              f1.changeWeight(f2.weight/2);
-              fishTank.remove(j);
-            } else if (f2 instanceof Whale) {
-              if ((f1.gender=="Female" && f2.gender=="Male") || (f2.gender=="Female" && f1.gender=="Male")) {
-                if (f1.breed==false || f2.breed==false) {
-                  fishTank.add(new Whale());
-                  f1.breed=true;
-                  f2.breed=true;
-                }
-              }
-            }
-          }//whale
-          else if (f1 instanceof Piranha) {//piranha
-            if (f2 instanceof Goldfish  && f1.weight>=f2.weight) {
-              f1.changeWeight(f2.weight/2);
-              fishTank.remove(j);
-            } else if (f2 instanceof Whale  && f2.weight>=f1.weight) {
-              f2.changeWeight(f1.weight/2);
-              fishTank.remove(i);
-            } else if (f2 instanceof Piranha) {
-              if ((f1.gender=="Female" && f2.gender=="Male") || (f2.gender=="Female" && f1.gender=="Male")) {
-                if (f1.breed==false || f2.breed==false) {
-                  fishTank.add(new Piranha());
-                  f1.breed=true;
-                  f2.breed=true;
-                }
-              }
-            }
-          }//piranha
-          else if (f1 instanceof Goldfish && !(f1 instanceof Toroidalfin)) {//goldfish
-            if (f2 instanceof Piranha  && f2.weight>=f1.weight) {
-              f2.changeWeight(f1.weight/2);
-              fishTank.remove(i);
-            } else if (f2 instanceof Whale  && f2.weight>=f1.weight) {
-              f2.changeWeight(f1.weight/2);
-              fishTank.remove(i);
-            } else if (f2 instanceof Goldfish && !(f2 instanceof Toroidalfin)) {
-              if ((f1.gender=="Female" && f2.gender=="Male") || (f2.gender=="Female" && f1.gender=="Male")) {
-                if (f1.breed==false || f2.breed==false) {
-                  fishTank.add(new Goldfish());
-                  f1.breed=true;
-                  f2.breed=true;
-                } else {
-                  f1.speedX=random(-3, 3);
-                  if (f1.speedX==0) f1.speedX=random(-3, 3);
-                  f1.speedY=sqrt(9-sq(f1.speedX));
-                  f2.speedX=-1*f1.speedX;
-                  f2.speedY=-1*f1.speedY;
-                }
-              } else {//if not opposite genders, change directions
-                f1.speedX=random(-3, 3);
-                if (f1.speedX==0) f1.speedX=random(-3, 3);
-                f1.speedY=sqrt(9-sq(f1.speedX));
-                f2.speedX=-1*f1.speedX;
-                f2.speedY=-1*f1.speedY;
-              }
-            } else if (f2 instanceof Toroidalfin) {//change directions after collision
-              f1.speedX=random(-3, 3);
-              if (f1.speedX==0) f1.speedX=random(-3, 3);
-              f1.speedY=sqrt(9-sq(f1.speedX));
-              f2.speedX=-1*f1.speedX;
-              f2.speedY=-1*f1.speedY;
-            }
-          }//goldfish
-          else if (f1 instanceof Toroidalfin) {//toroidalfin
-            if (f2 instanceof Piranha  && f2.weight>=f1.weight) {
-              f2.changeWeight(f1.weight/2);
-              fishTank.remove(i);
-            } else if (f2 instanceof Whale  && f2.weight>=f1.weight) {
-              f2.changeWeight(f1.weight/2);
-              fishTank.remove(i);
-            } else if (f2 instanceof Toroidalfin) {
-              if ((f1.gender=="Female" && f2.gender=="Male") || (f2.gender=="Female" && f1.gender=="Male")) {
-                if (f1.breed==false || f2.breed==false) {
-                  fishTank.add(new Toroidalfin());
-                  f1.breed=true;
-                  f2.breed=true;
-                } else {
-                  f1.speedX=random(-3, 3);
-                  if (f1.speedX==0) f1.speedX=random(-3, 3);
-                  f1.speedY=sqrt(9-sq(f1.speedX));
-                  f2.speedX=-1*f1.speedX;
-                  f2.speedY=-1*f1.speedY;
-                }
-              } else {//if not opposite genders, change directions after collision
-                f1.speedX=random(-3, 3);
-                if (f1.speedX==0) f1.speedX=random(-3, 3);
-                f1.speedY=sqrt(9-sq(f1.speedX));
-                f2.speedX=-1*f1.speedX;
-                f2.speedY=-1*f1.speedY;
-              }
-            } else if (f2 instanceof Goldfish && !(f2 instanceof Toroidalfin)) {//change directions after collision
-              f1.speedX=random(-3, 3);
-              if (f1.speedX==0) f1.speedX=random(-3, 3);
-              f1.speedY=sqrt(9-sq(f1.speedX));
-              f2.speedX=-1*f1.speedX;
-              f2.speedY=-1*f1.speedY;
-            }
-          }//toroidalfin
-        }//end of 'if fish collide'
-      }//end of second fish for loop
-    }//end of eat & breed
   }//end of paused frame
   if (ammonia<=31) background(ammonia, 150-ammonia, 255-ammonia);//background
   else if (ammonia>31 && ammonia<=127) background(ammonia, 119, 255-ammonia);
@@ -217,7 +108,7 @@ void draw() {
     if (bubbles.get(i).bY<=-bubbles.get(i).bSize) bubbles.remove(i);
   }
 
-  if (clicked==true && fishTank.contains(fishClick)==true) {
+  if (clicked==true && theTank.items.contains(fishClick)==true) {
     noStroke();
     if (fishClick instanceof Toroidalfin) fill(255, 0, 0, 127);
     else fill(fishClick.skin, 127);
@@ -235,7 +126,7 @@ void draw() {
   }
   drawButtons();
   textAlign(CENTER);
-  if (clicked==true && fishTank.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.gender + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
+  if (clicked==true && theTank.items.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.gender + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
 }
 
 void keyPressed() {
@@ -248,7 +139,6 @@ void keyPressed() {
     for (int i=0; i<8; i++) theTank.add(new Pellet(2));
   } else if (key=='t') {//Tap the Tank
     theTank.tapTheTank();
-    //count=0;
   } else if (key=='g') theTank.add(new Goldfish());//add goldfish
   else if (key=='w') theTank.add(new Whale());//add whale
   else if (key=='h') theTank.add(new Piranha());//add piranha

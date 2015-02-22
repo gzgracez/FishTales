@@ -34,16 +34,21 @@ class Piranha extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } 
-    else if (p instanceof Piranha) {
+    } else if (p instanceof Piranha) {
       if (!this.isDead && p.stillKickin()) {
         this.bounce(p);
       }
       return false;
+    } else {
+      Fish pFish=(Fish)p;
+      if (this.weight>=pFish.weight) {
+        this.changeWeight(pFish.getRadius());
+        return true;
+      }
+      return false;
     }
-    else return false;
   }
-  
+
   public void bounce(Tankable t) {
     Fish tFish=(Fish)t;
     this.speedX=random(-2, 2);
@@ -59,16 +64,14 @@ class Piranha extends Fish {
       if (fishX<=weight/2) {//bounce
         speedY=random(-2, 2);
         speedX=sqrt(4-sq(speedY));
-      }
-      else if (fishX>=600-weight/2) {
+      } else if (fishX>=600-weight/2) {
         speedY=random(-2, 2);
         speedX=-sqrt(4-sq(speedY));
       }
       if (fishY<=weight/2) {
         speedX=random(-2, 2);
         speedY=sqrt(4-sq(speedY));
-      }
-      else if (fishY>=600-weight/2) { 
+      } else if (fishY>=600-weight/2) { 
         speedX=random(-2, 2);
         speedY=-sqrt(4-sq(speedY));
       }
@@ -94,8 +97,7 @@ class Piranha extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      }
-      else {//stop at the top
+      } else {//stop at the top
         speedX=0;
         speedY=0;
       }

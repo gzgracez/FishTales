@@ -4,6 +4,7 @@ class Pellet implements Tankable {
   private color skin;
   private int type;//1-food, 2-poison, 3-fast
   private int size;
+  private FishTank tank=theTank;
 
   Pellet() {
     pX=random(600);
@@ -14,6 +15,17 @@ class Pellet implements Tankable {
   }
 
   Pellet(int t) {
+    pX=random(600);
+    pY=random(200);
+    type=t;
+    if (type==1) skin=color(0, 255, 0);
+    else if (type==2) skin=color(255, 0, 0);
+    else if (type==3) skin=color(255, 255, 0);
+    size=5;
+  }
+  
+  Pellet(int t, FishTank t2) {
+    tank=t2;
     pX=random(600);
     pY=random(200);
     type=t;
