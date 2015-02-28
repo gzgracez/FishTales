@@ -1,10 +1,10 @@
 interface Tankable {
-  void update();
-  boolean hasCollision(Tankable t);
-  void bump();
-  boolean stillKickin();
-  float getX();
-  float getY();
-  float getRadius();
-  void show();
+  public void update();
+  public boolean stillKickin();
+  public void bump();
+  public boolean hasCollision(Tankable t);
+  public float getRadius();
+  public float getX();
+  public float getY();
+  public void show();
 }

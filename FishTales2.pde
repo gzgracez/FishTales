@@ -124,7 +124,7 @@ void draw() {
   }
   drawButtons();
   textAlign(CENTER);
-  if (clicked==true && theTank.items.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.gender + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
+  if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.name + "\nSpecies: " + fishClick.type + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.age/900 + "\nWeight: " + nf(fishClick.weight, 0, 1) + "\n" + fishClick.death, 700, 300);
 }
 
 void keyPressed() {
@@ -191,8 +191,8 @@ void mouseClicked() {
   if (sq(mouseX-750)+sq(mouseY-440)<1600) theTank.add(new Piranha());//add piranha
   if (sq(mouseX-750)+sq(mouseY-525)<1600)  theTank.add(new Toroidalfin());//add toroidalfin
   for (int i=0; i<theTank.items.size (); i++) {//fish info
-    if (theTank.items.get(i) instanceof Fish) {
-      if (sq(mouseX-theTank.items.get(i).getX())+sq(mouseY-theTank.items.get(i).getY())<sq(theTank.items.get(i).getRadius())) {
+    if (theTank.get(i) instanceof Fish) {
+      if (sq(mouseX-theTank.get(i).getX())+sq(mouseY-theTank.items.get(i).getY())<sq(theTank.items.get(i).getRadius())) {
         clicked=true;
         fishClick=(Fish)theTank.items.get(i);
       }

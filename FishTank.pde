@@ -85,6 +85,14 @@ class FishTank {
   public boolean remove(Tankable t) {
     return items.remove(t);
   }
+  public boolean contains(Tankable t){
+    if (items.contains(t)) return true;
+    else return false;
+  }
+  public Tankable get(int index){
+    return items.get(index);
+  }
+  
 
   public void shakeTank() {//translating for tapTheTank
     if (tapCount>=11) tapped=false;
@@ -93,6 +101,9 @@ class FishTank {
         if (t instanceof Fish) {
           println( "shakeTank bumped! ugh");
           t.bump();
+          if (tapCount==10) {
+            //(Fish)t.changeSpeeds(-1*(Fish)t.getSpeedX,-1*(Fish)t.getSpeedY);
+          }
         }
       }
       tapCount++;
