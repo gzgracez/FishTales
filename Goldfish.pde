@@ -34,21 +34,24 @@ class Goldfish extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } else if (p instanceof Goldfish && !(p instanceof Toroidalfin)) {
+    } 
+    else if (p instanceof Goldfish && !(p instanceof Toroidalfin)) {
       if (!this.isDead && p.stillKickin()) {
         Goldfish pFish=(Goldfish)p;
         if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
           float ranNum=random(0, 1);
           if (ranNum<0.8) {
             this.bounce(p);
-          } else { 
+          } 
+          else { 
             if (this.breed==false || pFish.breed==false) {
               println("BREED");
               println(theTank.tankSize());
               tank.add(new Goldfish());
               this.breed=true;
               pFish.breed=true;
-            } else {
+            } 
+            else {
               this.bounce(p);
             }
           }
@@ -58,15 +61,40 @@ class Goldfish extends Fish {
         } //end can't breed
       }//both alive
       return false;
-    } else return false;
+    } 
+    else return false;
   }
 
   public void bounce(Tankable t) {
     Fish tFish=(Fish)t;
-    this.speedX=random(-3, 3);
-    if (this.speedX==0) this.speedX=random(-3, 3);
-    this.speedY=sqrt(9-sq(this.speedX))*pow(-1, (int)random(1, 5));
-    tFish.changeSpeeds(-1*this.speedX, -1*this.speedY);
+    if (this.fishX<tFish.fishX) {
+      this.speedX=-1*random(1, 3);
+      float tempSpeedX=random(1, 3);
+      if (this.fishY<tFish.fishY) {
+        this.speedY=-1*sqrt(9-sq(this.speedX));
+        float tempSpeedY=sqrt(9-sq(tempSpeedX));
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+      else {
+        this.speedY=sqrt(9-sq(this.speedX));
+        float tempSpeedY=-1*sqrt(9-sq(tempSpeedX));
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+    }
+    else {
+      this.speedX=random(1, 3);
+      float tempSpeedX=-1*random(1, 3);
+      if (this.fishY<tFish.fishY) {
+        this.speedY=-1*sqrt(9-sq(this.speedX));
+        float tempSpeedY=sqrt(9-sq(tempSpeedX));
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+      else {
+        this.speedY=sqrt(9-sq(this.speedX));
+        float tempSpeedY=-1*sqrt(9-sq(tempSpeedX));
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+    }
   }
 
   public void move() {
@@ -76,16 +104,18 @@ class Goldfish extends Fish {
       if (fishX<=weight/2) {//bounce
         speedY=random(-3, 3);
         speedX=sqrt(9-sq(speedY));
-      } else if (fishX>=600-weight/2) { 
+      } 
+      else if (fishX>=600-weight/2) { 
         speedY=random(-3, 3);
         speedX=-sqrt(9-sq(speedY));
       }
       if (fishY<=weight/2) {
         speedX=random(-3, 3);
-        speedY=sqrt(9-sq(speedY));
-      } else if (fishY>=600-weight/2) {
+        speedY=sqrt(9-sq(speedX));
+      } 
+      else if (fishY>=600-weight/2) {
         speedX=random(-3, 3);
-        speedY=-sqrt(9-sq(speedY));
+        speedY=-sqrt(9-sq(speedX));
       }
       fishX+=speedX;
       fishY+=speedY;
@@ -109,7 +139,8 @@ class Goldfish extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      } else {//stop at the top
+      } 
+      else {//stop at the top
         speedX=0;
         speedY=0;
       }

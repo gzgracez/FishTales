@@ -92,11 +92,8 @@ void draw() {
       }
     }//end detecting fish-pellet collision & fish closeness to food
   }//end of paused frame
-  if (ammonia<=31) background(ammonia, 150-ammonia, 255-ammonia);//background
-  else if (ammonia>31 && ammonia<=127) background(ammonia, 119, 255-ammonia);
-  else if (ammonia>127 && ammonia<=198) background(127, 119, 255-ammonia);
-  else background(127, 119, 57);
-
+  
+  
   if (frame) theTank.showAll();
   else theTank.updateAll();
 
@@ -106,7 +103,7 @@ void draw() {
     if (bubbles.get(i).bY<=-bubbles.get(i).bSize) bubbles.remove(i);
   }
 
-  if (clicked==true && theTank.items.contains(fishClick)==true) {
+  if (clicked==true && theTank.contains(fishClick)==true) {
     noStroke();
     if (fishClick instanceof Toroidalfin) fill(255, 0, 0, 127);
     else fill(fishClick.skin, 127);

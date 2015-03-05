@@ -70,6 +70,9 @@ abstract class Fish implements Tankable {
   public float getRadius() { 
     return (float)(weight)/2.0;
   }
+  public float getFishAmmonia(){
+    return ammonia;
+  }
   public void changeSpeeds(float x, float y) {
     speedX=x;
     speedY=y;
@@ -95,7 +98,6 @@ abstract class Fish implements Tankable {
       isDead=true;
       death="Death due to over-tapping \nof tank";
     }
-    println("bump for fish");
   }
   public void update() {
     show();

@@ -1,7 +1,7 @@
 class FishTank {
 
   private ArrayList <Tankable> items=new ArrayList<Tankable>();
-  private int ammoniaLevel;
+  private float ammoniaLevel;
   private float tWidth, tHeight;
   private String name;
   private boolean tapped;
@@ -15,9 +15,18 @@ class FishTank {
   }
 
   public void updateAll() {//show & move
+    if (ammoniaLevel<=31) background(ammoniaLevel, 150-ammoniaLevel, 255-ammoniaLevel);//background
+    else if (ammoniaLevel>31 && ammoniaLevel<=127) background(ammoniaLevel, 119, 255-ammoniaLevel);
+    else if (ammoniaLevel>127 && ammoniaLevel<=198) background(127, 119, 255-ammoniaLevel);
+    else background(127, 119, 57);
+    ammoniaLevel=0;
     shakeTank();//tapTheTank
     for (Tankable t : items) {
       t.update();
+      if (t instanceof Fish) {
+        Fish tFish=(Fish)t;
+        ammoniaLevel+=tFish.getFishAmmonia();
+      }
     }
     resetMatrix();
     for (int a=0; a<items.size (); a++) {
@@ -45,6 +54,10 @@ class FishTank {
   }
 
   public void showAll() {//show
+    if (ammoniaLevel<=31) background(ammoniaLevel, 150-ammoniaLevel, 255-ammoniaLevel);//background
+    else if (ammoniaLevel>31 && ammoniaLevel<=127) background(ammoniaLevel, 119, 255-ammoniaLevel);
+    else if (ammoniaLevel>127 && ammoniaLevel<=198) background(127, 119, 255-ammoniaLevel);
+    else background(127, 119, 57);
     shakeTank();
     for (Tankable t : items) {
       t.show();
@@ -57,7 +70,7 @@ class FishTank {
     tapCount=0;
   }
 
-  public int getAmmoniaLevel() { 
+  public float getAmmoniaLevel() { 
     return ammoniaLevel;
   }
 
@@ -74,7 +87,7 @@ class FishTank {
   }
 
   public void reset() {
-    for (int i=items.size ()-1; i>=0; i--) {
+    for (int i=items.size()-1; i>=0; i--) {
       items.remove(i);
     }
   }
@@ -85,21 +98,28 @@ class FishTank {
   public boolean remove(Tankable t) {
     return items.remove(t);
   }
-  public boolean contains(Tankable t){
+  public boolean contains(Tankable t) {
     if (items.contains(t)) return true;
     else return false;
   }
-  public Tankable get(int index){
+  public Tankable get(int index) {
     return items.get(index);
   }
-  
+  public Goldfish getLiveGoldfish() {
+    int index=(int)random(0, items.size());
+    while (! (items.get (index) instanceof Goldfish) || (!items.get(index).stillKickin())) {
+      index=(int)random(0, items.size());
+    }
+    Goldfish g=(Goldfish)items.get(index);
+    return g;
+  }
+
 
   public void shakeTank() {//translating for tapTheTank
     if (tapCount>=11) tapped=false;
     if (tapped && tapCount<11) {
       for (Tankable t : items) {
         if (t instanceof Fish) {
-          println( "shakeTank bumped! ugh");
           t.bump();
           if (tapCount==10) {
             //(Fish)t.changeSpeeds(-1*(Fish)t.getSpeedX,-1*(Fish)t.getSpeedY);

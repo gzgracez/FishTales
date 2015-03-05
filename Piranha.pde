@@ -11,6 +11,7 @@ class Piranha extends Fish {
     skin=color(random(224), random(255), random(112, 255));
     weight=random(10, 15);
     type="Piranha";
+    Goldfish follow=tank.getLiveGoldfish();
   }
   Piranha(FishTank t) {
     super();//calls the Fish() constructor to initialize all the common data
@@ -39,7 +40,6 @@ class Piranha extends Fish {
       Fish pFish=(Fish)p;
       if (this.weight>=pFish.weight) {
         this.changeWeight(pFish.getRadius());
-        print("P ATE SMALLER P");
         return true;
       }
       else if (this.weight==pFish.weight) {
@@ -68,19 +68,48 @@ class Piranha extends Fish {
         }
         return false;
       }
-      else{return false;}
+      else {
+        return false;
+      }
     } 
-    else {
-      return false;
+    else if (p instanceof Goldfish) {
+      Fish pFish=(Fish)p;
+      this.changeWeight(pFish.getRadius());
+      return true;
     }
+    else return false;
   }
 
   public void bounce(Tankable t) {
     Fish tFish=(Fish)t;
-    this.speedX=random(-2, 2);
-    if (this.speedX==0) this.speedX=random(-2, 2);
-    this.speedY=sqrt(4-sq(this.speedX))*pow(-1, (int)random(1, 5));
-    tFish.changeSpeeds(-1*this.speedX, -1*this.speedY);
+    if (this.fishX<tFish.fishX) {
+      this.speedX=-1*random(1, 3);
+      float tempSpeedX=random(1, 3);
+      if (this.fishY<tFish.fishY) {
+        this.speedY=-1*random(1, 3);
+        float tempSpeedY=random(1, 3);
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+      else {
+        this.speedY=random(1, 3);
+        float tempSpeedY=-1*random(1, 3);
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+    }
+    else {
+      this.speedX=random(1, 3);
+      float tempSpeedX=-1*random(1, 3);
+      if (this.fishY<tFish.fishY) {
+        this.speedY=-1*random(1, 3);
+        float tempSpeedY=random(1, 3);
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+      else {
+        this.speedY=random(1, 3);
+        float tempSpeedY=-1*random(1, 3);
+        tFish.changeSpeeds(tempSpeedX, tempSpeedY);
+      }
+    }
   }
 
   public void move() {
