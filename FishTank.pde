@@ -105,15 +105,29 @@ class FishTank {
   public Tankable get(int index) {
     return items.get(index);
   }
+  /*public Goldfish getLiveGoldfish() {
+   int index=(int)random(0, items.size());
+   while (! (items.get (index) instanceof Goldfish) || (!items.get(index).stillKickin())) {
+   index=(int)random(0, items.size());
+   }
+   Goldfish g=(Goldfish)items.get(index);
+   return g;
+   }*/
   public Goldfish getLiveGoldfish() {
-    int index=(int)random(0, items.size());
-    while (! (items.get (index) instanceof Goldfish) || (!items.get(index).stillKickin())) {
-      index=(int)random(0, items.size());
+    ArrayList <Goldfish> goldfish=new ArrayList<Goldfish>();
+    for (Tankable g : items) {
+      if (g instanceof Goldfish) {
+        goldfish.add((Goldfish)g);
+      }
     }
-    Goldfish g=(Goldfish)items.get(index);
-    return g;
+    if (goldfish.size()!=0) {
+      int tempIndex=(int)random(0, goldfish.size());
+      return goldfish.get(tempIndex);
+    }
+    else {
+      return null;
+    }
   }
-
 
   public void shakeTank() {//translating for tapTheTank
     if (tapCount>=11) tapped=false;

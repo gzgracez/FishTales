@@ -12,6 +12,9 @@ class Piranha extends Fish {
     weight=random(10, 15);
     type="Piranha";
     Goldfish follow=tank.getLiveGoldfish();
+    //    if (tank.getLiveGoldfish) {
+    //      follow=tank.getLiveGoldfish();
+    //    }
   }
   Piranha(FishTank t) {
     super();//calls the Fish() constructor to initialize all the common data
