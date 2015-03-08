@@ -125,23 +125,25 @@ class FishTank {
   }
 
   public Goldfish getClosestGoldfish(Piranha p) {
-    Tankable close=items.get(0);
-    int count=0;
-    for (Tankable g : items) {
-      if (g instanceof Goldfish) {
-        close=(Goldfish)g;
-        count++;
-      }
-    }
-    if (count==0) return null;
-    else {
+    if (items.size()>0) {
+      Tankable close=items.get(0);
+      int count=0;
       for (Tankable g : items) {
         if (g instanceof Goldfish) {
-          if (sqrt(sq(p.getX()-g.getX())+sq(p.getY()-g.getY()))<sqrt(sq(close.getX()-g.getX())+sq(close.getY()-g.getY()))) close=(Goldfish)g;
+          close=(Goldfish)g;
+          count++;
         }
       }
-    }
-    return (Goldfish)close; 
+      if (count==0) return null;
+      else {
+        for (Tankable g : items) {
+          if (g instanceof Goldfish) {
+            if (sqrt(sq(p.getX()-g.getX())+sq(p.getY()-g.getY()))<sqrt(sq(close.getX()-g.getX())+sq(close.getY()-g.getY()))) close=(Goldfish)g;
+          }
+        }
+      }
+      return (Goldfish)close;
+    } else return null;
   }
 
   public void shakeTank() {//translating for tapTheTank

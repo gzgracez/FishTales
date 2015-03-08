@@ -111,10 +111,13 @@ class Piranha extends Fish {
     if (isDead==false) {//alive
       age++;
       ammonia+=0.001;
-      if (this.hasCollision((Tankable)follow)) {
-        follow=tank.getClosestGoldfish(this);
+      if (follow!=null) {
+        if (this.hasCollision((Tankable)follow)) {
+          follow=tank.getClosestGoldfish(this);
+        }
       }
       if (follow==null) {
+        follow=tank.getClosestGoldfish(this);
         if (fishX<=weight/2) {//bounce
           speedY=random(-2, 2);
           speedX=sqrt(4-sq(speedY));
@@ -130,6 +133,11 @@ class Piranha extends Fish {
           speedY=-sqrt(4-sq(speedY));
         }
       } else {
+        float xDiff=follow.getX()-this.fishX;
+        float yDiff=follow.getY()-this.fishY;
+        float scale=2/sqrt(sq(xDiff)+sq(yDiff));
+        speedX=xDiff*scale;
+        speedY=yDiff*scale;
         if (fishX<=weight/2) {//bounce
           speedY=random(-2, 2);
           speedX=sqrt(4-sq(speedY));
