@@ -8,7 +8,7 @@ class Bubbles implements Tankable {
     bX=x;
     bY=y;
     bSize=s;
-    move=2;
+    move=random(-2,2);
     stopX1=bX-2;
     stopX2=bX+2;
   }
@@ -20,13 +20,13 @@ class Bubbles implements Tankable {
   }
 
   public void move() {
-    if (bY>-bSize) {
-      bY--;
-      bX+=move/10;
-    }
-    if (bX<=stopX1)
+    Random generator;
+    generator=new Random();
+    bY-=random(0, 2);
+    bX+=generator.nextGaussian();;
+    if (bY<1)
       move=-1*move;
-    else if (bX>=stopX2)
+    else if (bY>=1)
       move=-1*move;
   }
 

@@ -17,8 +17,10 @@
  Keyboard (corresponding keys are written on the button; space bar to pause)
  Reset button to completely reset the screen
  Tap the tank shakes the tank (in addition to making the fish go in opposite directions)
+ Bubbles generate at mouse position (if mouse is on the screen) when tank is tapped
+ Bubbles appear using the Gaussian distribution
  */
-
+import java.util.*;
 ArrayList <Fish> fishTank = new ArrayList <Fish>();
 ArrayList <Bubbles> bubbles = new ArrayList <Bubbles>();
 ArrayList <Pellet> pelletList = new ArrayList <Pellet>();

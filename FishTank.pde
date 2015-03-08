@@ -83,6 +83,16 @@ class FishTank {
   public void tapTheTank() {
     tapped=true;
     tapCount=0;
+    if (mouseX>0 && mouseX<tWidth && mouseY>0 && mouseY<tHeight)
+    {
+      Random generator;
+      generator=new Random();
+      for (int i=0; i<random (6, 10); i++) {
+        float tempX=constrain((float)(mouseX+30*generator.nextGaussian()),0,tWidth);
+        float tempY=constrain((float)(mouseY+30*generator.nextGaussian()),0,tHeight);
+        items.add(new Bubbles(tempX, tempY, 10));
+      }
+    }
   }
 
   public float getAmmoniaLevel() { 

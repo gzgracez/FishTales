@@ -57,10 +57,12 @@ class Whale extends Fish {
       }
       return false;
     }//collide with whale
-    else {
+    else if (!(p instanceof Bubbles)) {
       Fish pFish=(Fish)p;
       this.changeWeight(pFish.getRadius());
       return true;
+    } else {
+      return false;
     }
   }
 
