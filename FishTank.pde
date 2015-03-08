@@ -62,6 +62,22 @@ class FishTank {
                 t2.bump();
               }
             }//end collision has happened
+            if (t1 instanceof Fish && !(t1 instanceof Whale) && t2 instanceof Pellet && (((Pellet)t2).getType()==1 || ((Pellet)t2).getType()==2)) {
+              if (((Fish)t1).closeFood((Pellet)t2)) {
+                Pellet p = (Pellet)t2;
+                Fish tFish=(Fish)t1;
+                if (tFish instanceof Goldfish) {
+                  tFish.speedX=3*(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                  tFish.speedY=3*(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                } else if (tFish instanceof Whale) {
+                  tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                  tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                } else if (tFish instanceof Piranha) {
+                  tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                  tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
+                }
+              }
+            }
           }
         }
       }
@@ -88,8 +104,8 @@ class FishTank {
       Random generator;
       generator=new Random();
       for (int i=0; i<random (6, 10); i++) {
-        float tempX=constrain((float)(mouseX+30*generator.nextGaussian()),0,tWidth);
-        float tempY=constrain((float)(mouseY+30*generator.nextGaussian()),0,tHeight);
+        float tempX=constrain((float)(mouseX+30*generator.nextGaussian()), 0, tWidth);
+        float tempY=constrain((float)(mouseY+30*generator.nextGaussian()), 0, tHeight);
         items.add(new Bubbles(tempX, tempY, 10));
       }
     }

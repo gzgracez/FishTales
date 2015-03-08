@@ -1,4 +1,5 @@
 class Goldfish extends Fish {
+  Point point=new Point(0);
   Goldfish() {
     super();//calls the Fish() constructor to initialize all the common data
     maxAge=20000;
@@ -34,24 +35,21 @@ class Goldfish extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } 
-    else if (p instanceof Goldfish && !(p instanceof Toroidalfin)) {
+    } else if (p instanceof Goldfish && !(p instanceof Toroidalfin)) {
       if (!this.isDead && p.stillKickin()) {
         Goldfish pFish=(Goldfish)p;
         if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
           float ranNum=random(0, 1);
           if (ranNum<0.8) {
             this.bounce(p);
-          } 
-          else { 
+          } else { 
             if (this.breed==false || pFish.breed==false) {
               println("BREED");
               println(theTank.size());
               tank.add(new Goldfish());
               this.breed=true;
               pFish.breed=true;
-            } 
-            else {
+            } else {
               this.bounce(p);
             }
           }
@@ -61,8 +59,7 @@ class Goldfish extends Fish {
         } //end can't breed
       }//both alive
       return false;
-    } 
-    else return false;
+    } else return false;
   }
 
   public void bounce(Tankable t) {
@@ -74,22 +71,19 @@ class Goldfish extends Fish {
         this.speedY=-1*sqrt(9-sq(this.speedX));
         float tempSpeedY=sqrt(9-sq(tempSpeedX));
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      }
-      else {
+      } else {
         this.speedY=sqrt(9-sq(this.speedX));
         float tempSpeedY=-1*sqrt(9-sq(tempSpeedX));
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
       }
-    }
-    else {
+    } else {
       this.speedX=random(1, 3);
       float tempSpeedX=-1*random(1, 3);
       if (this.fishY<tFish.fishY) {
         this.speedY=-1*sqrt(9-sq(this.speedX));
         float tempSpeedY=sqrt(9-sq(tempSpeedX));
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      }
-      else {
+      } else {
         this.speedY=sqrt(9-sq(this.speedX));
         float tempSpeedY=-1*sqrt(9-sq(tempSpeedX));
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
@@ -101,19 +95,26 @@ class Goldfish extends Fish {
     if (isDead==false) {//alive
       age++;
       ammonia+=0.001;
+      if (age%800<400) {
+        //point.show();
+        point.move();
+        float xDiff=point.getX()-this.fishX;
+        float yDiff=point.getY()-this.fishY;
+        float scale=3/sqrt(sq(xDiff)+sq(yDiff));
+        speedX=xDiff*scale;
+        speedY=yDiff*scale;
+      }
       if (fishX<=weight/2) {//bounce
         speedY=random(-3, 3);
         speedX=sqrt(9-sq(speedY));
-      } 
-      else if (fishX>=600-weight/2) { 
+      } else if (fishX>=600-weight/2) { 
         speedY=random(-3, 3);
         speedX=-sqrt(9-sq(speedY));
       }
       if (fishY<=weight/2) {
         speedX=random(-3, 3);
         speedY=sqrt(9-sq(speedX));
-      } 
-      else if (fishY>=600-weight/2) {
+      } else if (fishY>=600-weight/2) {
         speedX=random(-3, 3);
         speedY=-sqrt(9-sq(speedX));
       }
@@ -139,8 +140,7 @@ class Goldfish extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      } 
-      else {//stop at the top
+      } else {//stop at the top
         speedX=0;
         speedY=0;
       }

@@ -5,6 +5,7 @@ class Toroidalfin extends Goldfish {
     fishX=random(50, 550);
     fishY=random(50, 550);
     type="Toroidalfin";
+    point=new Point(0);
   }
   Toroidalfin(FishTank t) {
     super();
@@ -83,6 +84,15 @@ class Toroidalfin extends Goldfish {
     if (isDead==false) {//alive
       age++;
       ammonia+=0.001;
+      if (age%800<400) {
+        //point.show();
+        point.move();
+        float xDiff=point.getX()-this.fishX;
+        float yDiff=point.getY()-this.fishY;
+        float scale=3/sqrt(sq(xDiff)+sq(yDiff));
+        speedX=xDiff*scale;
+        speedY=yDiff*scale;
+      }
       if (fishX<=-weight/2) {//bounce
         fishX=600+weight/2;
       } else if (fishX>=600+weight/2) {

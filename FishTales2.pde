@@ -38,37 +38,15 @@ void setup() {
 }
 
 void draw() {
-  if (frame==false) {
-    for (int i=0; i<fishTank.size (); i++) {//detecting fish-pellet collision & fish closeness to food
-      Fish n = fishTank.get(i);
-      for (int j=0; j<pelletList.size (); j++) {
-        Pellet p=pelletList.get(j);
-        if (n.closeFood(p) == true && n.isDead==false  && (p.type==1 || p.type==2)) {
-          if (n instanceof Goldfish) {
-            n.speedX=random(0.1, 3)*(p.pX-n.fishX)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-            n.speedY=sqrt(9-sq(n.speedX))*(p.pY-n.fishY)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-          } else if (n instanceof Whale) {
-            n.speedX=random(0.1, 1)*(p.pX-n.fishX)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-            n.speedY=sqrt(1-sq(n.speedX))*(p.pY-n.fishY)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-          } else if (n instanceof Piranha) {
-            n.speedX=random(1.1, 2)*(p.pX-n.fishX)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-            n.speedY=sqrt(4-sq(n.speedX))*(p.pY-n.fishY)/sqrt(sq(p.pX-n.fishX)+sq(p.pY-n.fishY));
-          }
-        }
-      }
-    }//end detecting fish-pellet collision & fish closeness to food
-  }//end of paused frame
-
+  println(theTank.size());
   if (frame) theTank.showAll();
   else theTank.updateAll();
-
   if (clicked==true && theTank.contains(fishClick)==true) {
     noStroke();
     if (fishClick instanceof Toroidalfin) fill(255, 0, 0, 127);
     else fill(fishClick.getSkin(), 127);
     ellipse (fishClick.getX(), fishClick.getY(), 10*fishClick.getRadius()/3, 10*fishClick.getRadius()/3);
   }
-
   drawButtons();
   textAlign(CENTER);
   if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);

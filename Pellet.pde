@@ -34,7 +34,11 @@ class Pellet implements Tankable {
     else if (type==3) skin=color(255, 255, 0);
     size=5;
   }
-
+  
+  public int getType(){
+    return type;
+  }
+  
   public void show() {
     stroke(skin);
     fill(skin);
