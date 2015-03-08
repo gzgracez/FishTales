@@ -3,8 +3,8 @@ class Whale extends Fish {
     super();//calls the Fish() constructor to initialize all the common data
     maxAge=30000;
     maxWeight=100;
-    fishX=random(10, 590);
-    fishY=random(10, 590);
+    fishX=random(50, 550);
+    fishY=random(50, 550);
     speedX=pow(-1, (int)random(1, 5))*random(0.5, 1.2);
     speedY = 0;
     skin=color(random(10, 255));

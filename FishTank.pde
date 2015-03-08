@@ -87,7 +87,7 @@ class FishTank {
   }
 
   public void reset() {
-    for (int i=items.size()-1; i>=0; i--) {
+    for (int i=items.size ()-1; i>=0; i--) {
       items.remove(i);
     }
   }
@@ -105,14 +105,10 @@ class FishTank {
   public Tankable get(int index) {
     return items.get(index);
   }
-  /*public Goldfish getLiveGoldfish() {
-   int index=(int)random(0, items.size());
-   while (! (items.get (index) instanceof Goldfish) || (!items.get(index).stillKickin())) {
-   index=(int)random(0, items.size());
-   }
-   Goldfish g=(Goldfish)items.get(index);
-   return g;
-   }*/
+  public Fish getFish(int index) {
+    if (items.get(index) instanceof Fish) return (Fish)items.get(index);
+    else return null;
+  }
   public Goldfish getLiveGoldfish() {
     ArrayList <Goldfish> goldfish=new ArrayList<Goldfish>();
     for (Tankable g : items) {
@@ -123,10 +119,29 @@ class FishTank {
     if (goldfish.size()!=0) {
       int tempIndex=(int)random(0, goldfish.size());
       return goldfish.get(tempIndex);
-    }
-    else {
+    } else {
       return null;
     }
+  }
+
+  public Goldfish getClosestGoldfish(Piranha p) {
+    Tankable close=items.get(0);
+    int count=0;
+    for (Tankable g : items) {
+      if (g instanceof Goldfish) {
+        close=(Goldfish)g;
+        count++;
+      }
+    }
+    if (count==0) return null;
+    else {
+      for (Tankable g : items) {
+        if (g instanceof Goldfish) {
+          if (sqrt(sq(p.getX()-g.getX())+sq(p.getY()-g.getY()))<sqrt(sq(close.getX()-g.getX())+sq(close.getY()-g.getY()))) close=(Goldfish)g;
+        }
+      }
+    }
+    return (Goldfish)close; 
   }
 
   public void shakeTank() {//translating for tapTheTank

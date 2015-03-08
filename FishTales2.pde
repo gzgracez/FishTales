@@ -92,8 +92,8 @@ void draw() {
       }
     }//end detecting fish-pellet collision & fish closeness to food
   }//end of paused frame
-  
-  
+
+
   if (frame) theTank.showAll();
   else theTank.updateAll();
 
@@ -154,8 +154,8 @@ void mouseDragged() {
   for (int i=0; i<theTank.items.size (); i++) {
     if (sq(mouseX-theTank.items.get(i).getX())+sq(mouseY-theTank.items.get(i).getY())<sq(theTank.items.get(i).getRadius()+5)) {
       if (mouseX>theTank.items.get(i).getRadius() && mouseX<600-theTank.items.get(i).getRadius() && mouseY>theTank.items.get(i).getRadius() && mouseY<600-theTank.items.get(i).getRadius()) {
-        Fish tankFish=(Fish)theTank.items.get(i);
-        tankFish.setFishPos(mouseX, mouseY);
+        Fish tankFish=(Fish)theTank.getFish(i);
+        if (tankFish!=null) tankFish.setFishPos(mouseX, mouseY);
       }
     }
   }
