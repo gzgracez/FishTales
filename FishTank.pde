@@ -6,6 +6,7 @@ class FishTank {
   private String name;
   private boolean tapped;
   private int tapCount;
+  private int deltaX=650;
 
   FishTank(String name, float w, float h) {
     this.name=name;
@@ -19,14 +20,28 @@ class FishTank {
     else if (ammoniaLevel>31 && ammoniaLevel<=127) background(ammoniaLevel, 119, 255-ammoniaLevel);
     else if (ammoniaLevel>127 && ammoniaLevel<=198) background(127, 119, 255-ammoniaLevel);
     else background(127, 119, 57);
+    if (deltaX<650) { 
+      imageMode(CENTER);
+      image(net, deltaX, 0, 200, 200);
+      cleanTheTank();
+    }
     ammoniaLevel=0;
     shakeTank();//tapTheTank
-    for (Tankable t : items) {
-      t.update();
-      if (t instanceof Fish) {
-        Fish tFish=(Fish)t;
+    for (int t=0; t<items.size (); t++) {
+      items.get(t).update();
+      if (items.get(t) instanceof Fish) {
+        Fish tFish=(Fish)items.get(t);
         ammoniaLevel+=tFish.getFishAmmonia();
-      }
+        if (ammoniaLevel>300) {
+          if ((int)random(tFish.getAge()-ammoniaLevel)==(int)random(tFish.getAge()-ammoniaLevel)) { 
+            tFish.setIsDead(true);
+            tFish.setDeath("Death due to un-clean tank");
+          }
+        }//check for too much ammonia
+        if (tFish.getAge()%600==(int)random(50*(tFish.getAge()/600), 900) && tFish.stillKickin()) {//original point of bubble
+          items.add(new Bubbles(tFish.getX(), tFish.getY(), (tFish.getRadius()*2)/3));
+        }
+      }//if istanceof Fish
     }
     resetMatrix();
     for (int a=0; a<items.size (); a++) {
@@ -78,11 +93,32 @@ class FishTank {
     return 1;
   }
 
-  public int cleanTheTank() {
-    return 1;
+  public void cleanTheTank() {
+    ammoniaLevel=0;
+    deltaX+=5;
+    for (int i=0; i<items.size (); i++) {
+      if (items.get(i) instanceof Fish) {
+        Fish fish=(Fish)items.get(i);
+        fish.setFishAmmonia(0);
+        if (fish.isDead==true && fish.getY()>=-fish.getRadius() && fish.getY()<=100-fish.getRadius() && fish.getX()<=deltaX && fish.getX()>=deltaX-50) {
+          items.remove(i);
+          i--;
+        }
+      } else {
+        Tankable thing=items.get(i);
+        if (thing.getY()>=-thing.getRadius() && thing.getY()<=100-thing.getRadius() && thing.getX()<=deltaX && thing.getX()>=deltaX-50) {
+          items.remove(i);
+          i--;
+        }
+        if (!thing.stillKickin()) { 
+          items.remove(i);
+          i--;
+        }
+      }
+    }
   }
 
-  public int tankSize() {
+  public int size() {
     return items.size();
   }
 

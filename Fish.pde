@@ -4,7 +4,7 @@ abstract class Fish implements Tankable {
   protected float speedX, speedY;
   protected float fishX, fishY;
   protected float weight, maxWeight;
-  protected int skin;
+  protected color skin;
   protected int age=0, maxAge;
   protected boolean isDead=false;
   protected float ammonia=0;
@@ -21,7 +21,7 @@ abstract class Fish implements Tankable {
     else gender="Female";
   }
 
-  Fish(FishTank t, String n, float sX, float sY, float x, float y, float z, int c) {
+  Fish(FishTank t, String n, float sX, float sY, float x, float y, float z, color c) {
     tank=t;
     name=n;
     speedX=sX;
@@ -33,7 +33,7 @@ abstract class Fish implements Tankable {
     maxWeight=50;
   }
 
-  Fish(FishTank t, String n, float s, float z, int c) {
+  Fish(FishTank t, String n, float s, float z, color c) {
     tank=t;
     name=n;
     speedX=s; 
@@ -45,7 +45,7 @@ abstract class Fish implements Tankable {
     maxWeight=50;
   }
 
-  Fish(int c) {
+  Fish(color c) {
     name=names[(int)random(names.length)];
     speedX=random(-3, 3);
     if (speedX==0) speedX=random(-3, 3);
@@ -70,8 +70,35 @@ abstract class Fish implements Tankable {
   public float getRadius() { 
     return (float)(weight)/2.0;
   }
-  public float getFishAmmonia(){
+  public int getAge() { 
+    return age;
+  }
+  public String getName() { 
+    return name;
+  }
+  public String getType() { 
+    return type;
+  }
+  public String getDeath() { 
+    return death;
+  }
+  public color getSkin() { 
+    return skin;
+  }
+  public float getMaxWeight() { 
+    return maxWeight;
+  }
+  public float getFishAmmonia() {
     return ammonia;
+  }
+  public void setFishAmmonia(float a) {
+    ammonia=a;
+  }
+  public void setIsDead(boolean a) {
+    isDead=a;
+  }
+  public void setDeath(String a) {
+    death=a;
   }
   public void changeSpeeds(float x, float y) {
     speedX=x;
@@ -153,19 +180,9 @@ abstract class Fish implements Tankable {
     speedY*=0.8;
   }
 
-  public boolean hasCollision(Pellet p) {//fish collides with pellet
-    if (sqrt(sq(p.pX-fishX)+sq(p.pY-fishY))<(weight/2+p.size/2)) return true;
-    else return false;
-  }//hasCollision
-
   public boolean closeFood(Pellet p) {//fish is close to the food
     if (sqrt(sq(p.pX-fishX)+sq(p.pY-fishY))<=5+(weight/2+p.size/2)) return true;
     else return false;
   }//closeFood
-
-  public boolean hasCollision(Fish f) {//fish collides with fish
-    if (sqrt(sq(f.fishX-this.fishX)+sq(f.fishY-this.fishY))<(this.weight/2+f.weight/2)) return true;
-    else return false;
-  }//hasCollision
 }
 

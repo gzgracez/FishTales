@@ -42,7 +42,7 @@ class Whale extends Fish {
           } else { 
             if (this.breed==false || pFish.breed==false) {
               println("BREED");
-              println(theTank.tankSize());
+              println(theTank.size());
               tank.add(new Whale());
               this.breed=true;
               pFish.breed=true;
@@ -59,11 +59,8 @@ class Whale extends Fish {
     }//collide with whale
     else {
       Fish pFish=(Fish)p;
-      if (this.weight>=pFish.weight) {
-        this.changeWeight(pFish.getRadius());
-        return true;
-      }
-      return false;
+      this.changeWeight(pFish.getRadius());
+      return true;
     }
   }
 

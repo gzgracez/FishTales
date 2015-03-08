@@ -46,7 +46,7 @@ class Goldfish extends Fish {
           else { 
             if (this.breed==false || pFish.breed==false) {
               println("BREED");
-              println(theTank.tankSize());
+              println(theTank.size());
               tank.add(new Goldfish());
               this.breed=true;
               pFish.breed=true;

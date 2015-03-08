@@ -1,4 +1,4 @@
-class Bubbles {  
+class Bubbles implements Tankable {  
   private float bX, bY;
   private float bSize;
   private float move;
@@ -13,13 +13,13 @@ class Bubbles {
     stopX2=bX+2;
   }
 
-  void show() {
+  public void show() {
     noFill();
     stroke(255);
     ellipse(bX, bY, bSize, bSize);
   }
 
-  void move() {
+  public void move() {
     if (bY>-bSize) {
       bY--;
       bX+=move/10;
@@ -29,4 +29,28 @@ class Bubbles {
     else if (bX>=stopX2)
       move=-1*move;
   }
+
+  public void update() {
+    show();
+    move();
+  }
+  public boolean stillKickin() {
+    if (bY<=-bSize) return false;
+    return true;
+  }
+  public void bump() {
+  }
+  public boolean hasCollision(Tankable t) {
+    return false;
+  }
+  public float getRadius() {
+    return bSize/2;
+  }
+  public float getX() {
+    return bX;
+  }
+  public float getY() {
+    return bY;
+  }
 }
+

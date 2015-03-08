@@ -42,8 +42,7 @@ class Pellet implements Tankable {
   }
 
   public void move() {
-    if (pY<600-size/2)
-      pY+=0.08;
+    if (pY<600-size/2) pY+=0.08;
   }
 
   public void update() {
@@ -60,7 +59,8 @@ class Pellet implements Tankable {
   }
 
   public boolean stillKickin() {
-    return true;
+    if (pY>=600-size/2) return false;
+    else return true;
   }
 
   public void bump() {

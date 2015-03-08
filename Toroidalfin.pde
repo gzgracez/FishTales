@@ -32,7 +32,7 @@ class Toroidalfin extends Goldfish {
           } else { 
             if (this.breed==false || pFish.breed==false) {
               println("BREED");
-              println(theTank.tankSize());
+              println(theTank.size());
               tank.add(new Toroidalfin());
               this.breed=true;
               pFish.breed=true;
