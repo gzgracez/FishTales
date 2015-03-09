@@ -47,9 +47,9 @@ void draw() {
     else fill(fishClick.getSkin(), 127);
     ellipse (fishClick.getX(), fishClick.getY(), 10*fishClick.getRadius()/3, 10*fishClick.getRadius()/3);
   }
-  drawButtons();
   textAlign(CENTER);
-  //if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);
+  drawButtons();
+  if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);
 }
 
 void keyPressed() {
