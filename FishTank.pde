@@ -69,10 +69,12 @@ class FishTank {
                 if (tFish instanceof Goldfish) {
                   tFish.speedX=3*(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=3*(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } else if (tFish instanceof Whale) {
+                } 
+                else if (tFish instanceof Whale) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } else if (tFish instanceof Piranha) {
+                } 
+                else if (tFish instanceof Piranha) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                 }
@@ -82,6 +84,7 @@ class FishTank {
         }
       }
     }
+    if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);
   }
 
   public void showAll() {//show
@@ -130,7 +133,8 @@ class FishTank {
           items.remove(i);
           i--;
         }
-      } else {
+      } 
+      else {
         Tankable thing=items.get(i);
         if (thing.getY()>=-thing.getRadius() && thing.getY()<=100-thing.getRadius() && thing.getX()<=deltaX && thing.getX()>=deltaX-50) {
           items.remove(i);
@@ -181,7 +185,8 @@ class FishTank {
     if (goldfish.size()!=0) {
       int tempIndex=(int)random(0, goldfish.size());
       return goldfish.get(tempIndex);
-    } else {
+    } 
+    else {
       return null;
     }
   }
@@ -205,7 +210,8 @@ class FishTank {
         }
       }
       return (Goldfish)close;
-    } else return null;
+    } 
+    else return null;
   }
 
   public void shakeTank() {//translating for tapTheTank
