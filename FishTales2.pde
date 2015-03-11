@@ -28,12 +28,13 @@ FishTank theTank;
 boolean clicked=false;
 Fish fishClick;
 boolean frame=false;
-PImage net;
+PImage net, seaweed;
 
 void setup() {
   size(800, 600);
   background (0, 150, 255);
   net=loadImage("net2.png");
+  seaweed=loadImage("Seaweed.png");
   theTank=new FishTank("theTank", width-100, height);
 }
 
@@ -49,6 +50,9 @@ void draw() {
   }
   textAlign(CENTER);
   drawButtons();
+  imageMode(CORNER);
+  image(seaweed, 0,theTank.tHeight-seaweed.height);
+  //drawWaterMill();
   if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);
 }
 
@@ -56,21 +60,26 @@ void keyPressed() {
   if (key==' ') {//pause
     if (frame==false) frame=true;
     else frame=false;
-  } else if (key=='f') {//Sprinkle food
+  } 
+  else if (key=='f') {//Sprinkle food
     for (int i=0; i<8; i++) theTank.add(new Pellet(1));
-  } else if (key=='p') {//Sprinkle poison
+  } 
+  else if (key=='p') {//Sprinkle poison
     for (int i=0; i<8; i++) theTank.add(new Pellet(2));
-  } else if (key=='t') theTank.tapTheTank(); 
+  } 
+  else if (key=='t') theTank.tapTheTank(); 
   else if (key=='g') theTank.add(new Goldfish());//add goldfish
   else if (key=='w') theTank.add(new Whale());//add whale
   else if (key=='h') theTank.add(new Piranha());//add piranha
   else if (key=='d') theTank.add(new Toroidalfin());//add toroidalfin
   else if (key=='s') {//Sprinkle slowness
     for (int i=0; i<8; i++) theTank.add(new Pellet(3));
-  } else if (key=='c') {//clean the tank
+  } 
+  else if (key=='c') {//clean the tank
     theTank.deltaX=0;
     theTank.cleanTheTank();
-  } else if (key=='r') {//Reset
+  } 
+  else if (key=='r') {//Reset
     theTank.reset();
   }
 }
@@ -178,3 +187,10 @@ void drawButtons() {
   fill(0);
 }
 
+/*void drawWaterMill() {
+ stroke(0);
+ noFill();
+ ellipse(theTank.tWidth/6, 5*theTank.tHeight/6, 80, 100);
+ 
+ ellipse(theTank.tWidth/6-25, 5*theTank.tHeight/6+25, 80, 100);
+ }*/
