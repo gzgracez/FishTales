@@ -42,6 +42,12 @@ class FishTank {
           items.add(new Bubbles(tFish.getX(), tFish.getY(), (tFish.getRadius()*2)/3));
         }
       }//if istanceof Fish
+      else if (items.get(t) instanceof Bubbles) {
+        if (!items.get(t).stillKickin()) {
+          remove(items.get(t));
+          t--;
+        }
+      }
     }
     resetMatrix();
     for (int a=0; a<items.size (); a++) {
@@ -69,10 +75,12 @@ class FishTank {
                 if (tFish instanceof Goldfish) {
                   tFish.speedX=3*(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=3*(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } else if (tFish instanceof Whale) {
+                } 
+                else if (tFish instanceof Whale) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } else if (tFish instanceof Piranha) {
+                } 
+                else if (tFish instanceof Piranha) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                 }
@@ -118,6 +126,10 @@ class FishTank {
   public int waterLevel() {
     return 1;
   }
+  
+  public float getTWidth(){
+    return tWidth;
+  }
 
   public void cleanTheTank() {
     ammoniaLevel=0;
@@ -130,7 +142,8 @@ class FishTank {
           items.remove(i);
           i--;
         }
-      } else {
+      } 
+      else {
         Tankable thing=items.get(i);
         if (thing.getY()>=-thing.getRadius() && thing.getY()<=100-thing.getRadius() && thing.getX()<=deltaX && thing.getX()>=deltaX-50) {
           items.remove(i);
@@ -181,7 +194,8 @@ class FishTank {
     if (goldfish.size()!=0) {
       int tempIndex=(int)random(0, goldfish.size());
       return goldfish.get(tempIndex);
-    } else {
+    } 
+    else {
       return null;
     }
   }
@@ -205,7 +219,8 @@ class FishTank {
         }
       }
       return (Goldfish)close;
-    } else return null;
+    } 
+    else return null;
   }
 
   public void shakeTank() {//translating for tapTheTank

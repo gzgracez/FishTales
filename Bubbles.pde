@@ -3,14 +3,25 @@ class Bubbles implements Tankable {
   private float bSize;
   private float move;
   private float stopX1, stopX2;
+  private FishTank tank=theTank;
 
   Bubbles(float x, float y, float s) {
     bX=x;
     bY=y;
     bSize=s;
-    move=random(-2,2);
+    move=random(-2, 2);
     stopX1=bX-2;
     stopX2=bX+2;
+  }
+
+  Bubbles(float x, float y, float s, FishTank t) {
+    bX=x;
+    bY=y;
+    bSize=s;
+    move=random(-2, 2);
+    stopX1=bX-2;
+    stopX2=bX+2;
+    tank=t;
   }
 
   public void show() {
@@ -23,11 +34,8 @@ class Bubbles implements Tankable {
     Random generator;
     generator=new Random();
     bY-=random(0, 2);
-    bX+=generator.nextGaussian();;
-    if (bY<1)
-      move=-1*move;
-    else if (bY>=1)
-      move=-1*move;
+    bX+=generator.nextGaussian();
+    ;
   }
 
   public void update() {

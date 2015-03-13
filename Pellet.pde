@@ -5,6 +5,7 @@ class Pellet implements Tankable {
   private int type;//1-food, 2-poison, 3-fast
   private int size;
   private FishTank tank=theTank;
+  private float ySpeed=random(0.05,0.5);
 
   Pellet() {
     pX=random(600);
@@ -46,7 +47,7 @@ class Pellet implements Tankable {
   }
 
   public void move() {
-    if (pY<600-size/2) pY+=0.08;
+    if (pY<600-size/2) pY+=ySpeed;
   }
 
   public void update() {

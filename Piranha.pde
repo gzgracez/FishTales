@@ -40,25 +40,29 @@ class Piranha extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } else if (p instanceof Piranha) {
+    } 
+    else if (p instanceof Piranha) {
       Fish pFish=(Fish)p;
       if (this.weight>=pFish.weight) {
         this.changeWeight(pFish.getRadius());
         return true;
-      } else if (this.weight==pFish.weight) {
+      } 
+      else if (this.weight==pFish.weight) {
         if (!this.isDead && p.stillKickin()) {
           if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
             float ranNum=random(0, 1);
             if (ranNum<0.8) {
               this.bounce(p);
-            } else { 
+            } 
+            else { 
               if (this.breed==false || pFish.breed==false) {
                 println("BREED");
                 println(theTank.size());
                 tank.add(new Piranha());
                 this.breed=true;
                 pFish.breed=true;
-              } else {
+              } 
+              else {
                 this.bounce(p);
               }
             }
@@ -68,14 +72,17 @@ class Piranha extends Fish {
           } //end can't breed
         }
         return false;
-      } else {
+      } 
+      else {
         return false;
       }
-    } else if (p instanceof Goldfish) {
+    } 
+    else if (p instanceof Goldfish) {
       Fish pFish=(Fish)p;
       this.changeWeight(pFish.getRadius());
       return true;
-    } else return false;
+    } 
+    else return false;
   }
 
   public void bounce(Tankable t) {
@@ -87,19 +94,22 @@ class Piranha extends Fish {
         this.speedY=-1*random(1, 3);
         float tempSpeedY=random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      } else {
+      } 
+      else {
         this.speedY=random(1, 3);
         float tempSpeedY=-1*random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
       }
-    } else {
+    } 
+    else {
       this.speedX=random(1, 3);
       float tempSpeedX=-1*random(1, 3);
       if (this.fishY<tFish.fishY) {
         this.speedY=-1*random(1, 3);
         float tempSpeedY=random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      } else {
+      } 
+      else {
         this.speedY=random(1, 3);
         float tempSpeedY=-1*random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
@@ -109,6 +119,7 @@ class Piranha extends Fish {
 
   public void move() {
     if (isDead==false) {//alive
+      println(follow);
       age++;
       ammonia+=0.001;
       if (follow!=null) {
@@ -121,37 +132,26 @@ class Piranha extends Fish {
         if (fishX<=weight/2) {//bounce
           speedY=random(-2, 2);
           speedX=sqrt(4-sq(speedY));
-        } else if (fishX>=600-weight/2) {
+        } 
+        else if (fishX>=600-weight/2) {
           speedY=random(-2, 2);
           speedX=-sqrt(4-sq(speedY));
         }
         if (fishY<=weight/2) {
           speedX=random(-2, 2);
           speedY=sqrt(4-sq(speedY));
-        } else if (fishY>=600-weight/2) { 
+        } 
+        else if (fishY>=600-weight/2) { 
           speedX=random(-2, 2);
           speedY=-sqrt(4-sq(speedY));
         }
-      } else {
+      } 
+      else {
         float xDiff=follow.getX()-this.fishX;
         float yDiff=follow.getY()-this.fishY;
         float scale=2/sqrt(sq(xDiff)+sq(yDiff));
         speedX=xDiff*scale;
         speedY=yDiff*scale;
-        if (fishX<=weight/2) {//bounce
-          speedY=random(-2, 2);
-          speedX=sqrt(4-sq(speedY));
-        } else if (fishX>=600-weight/2) {
-          speedY=random(-2, 2);
-          speedX=-sqrt(4-sq(speedY));
-        }
-        if (fishY<=weight/2) {
-          speedX=random(-2, 2);
-          speedY=sqrt(4-sq(speedY));
-        } else if (fishY>=600-weight/2) { 
-          speedX=random(-2, 2);
-          speedY=-sqrt(4-sq(speedY));
-        }
       }
       fishX+=speedX; 
       fishY+=speedY;
@@ -175,7 +175,8 @@ class Piranha extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      } else {//stop at the top
+      } 
+      else {//stop at the top
         speedX=0;
         speedY=0;
       }

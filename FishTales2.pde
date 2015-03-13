@@ -1,7 +1,7 @@
 /*
  Program: Fish Tank 2.0
  Author: Grace Zhang
- Date: 3/7/15
+ Date: 3/13/15
  Notes:
  Tail that grows and flaps along with the fish & follows the direction of movement
  Bubbles come out of fish, then float to the top of the tank (They also move left & right)
@@ -29,13 +29,17 @@ boolean clicked=false;
 Fish fishClick;
 boolean frame=false;
 PImage net, seaweed;
+float sPos1, sPos2, sPos3;
 
 void setup() {
   size(800, 600);
   background (0, 150, 255);
   net=loadImage("net2.png");
   seaweed=loadImage("Seaweed.png");
-  theTank=new FishTank("theTank", width-100, height);
+  theTank=new FishTank("theTank", width-200, height);
+  sPos1=random(0, theTank.getTWidth()/4.0);
+  sPos2=random(theTank.getTWidth()/4.0, 2*theTank.getTWidth()/4.0);
+  sPos3=random(2*theTank.getTWidth()/4.0, theTank.getTWidth()-seaweed.width);
 }
 
 void draw() {
@@ -51,7 +55,9 @@ void draw() {
   textAlign(CENTER);
   drawButtons();
   imageMode(CORNER);
-  image(seaweed, 0,theTank.tHeight-seaweed.height);
+  image(seaweed, sPos1, theTank.tHeight-seaweed.height);
+  image(seaweed, sPos2, theTank.tHeight-seaweed.height);
+  image(seaweed, sPos3, theTank.tHeight-seaweed.height);
   //drawWaterMill();
   if (clicked==true && theTank.contains(fishClick)) text("Name: " + fishClick.getName() + "\nSpecies: " + fishClick.getType() + "\nGender: " + fishClick.getGender() + "\nAge: " + fishClick.getAge()/900 + "\nWeight: " + nf(fishClick.getRadius()*2, 0, 1) + "\n" + fishClick.getDeath(), 700, 300);
 }
