@@ -7,12 +7,19 @@ class FishTank {
   private boolean tapped;
   private int tapCount;
   private int deltaX=650;
+  private PImage seaweed=loadImage("Seaweed.png");
+  private float sPos1=random(0, tWidth/4.0);
+  private float sPos2=random(tWidth/4.0, 2*tWidth/4.0);
+  private float sPos3=random(2*tWidth/4.0, tWidth-seaweed.width);
 
   FishTank(String name, float w, float h) {
     this.name=name;
     this.tWidth=w;
     this.tHeight=h;
     this.ammoniaLevel=0;
+    sPos1=random(0, 2*tWidth/6.0);
+    sPos2=random(2*tWidth/6.0, 2*tWidth/6.0);
+    sPos3=random(4*tWidth/6.0, tWidth-seaweed.width);
   }
 
   public void updateAll() {//show & move
@@ -25,6 +32,9 @@ class FishTank {
       image(net, deltaX, 0, 200, 200);
       cleanTheTank();
     }
+    image(seaweed, sPos1, tHeight-seaweed.height);
+    image(seaweed, sPos2, tHeight-seaweed.height);
+    image(seaweed, sPos3, tHeight-seaweed.height);
     ammoniaLevel=0;
     shakeTank();//tapTheTank
     for (int t=0; t<items.size (); t++) {
@@ -126,8 +136,8 @@ class FishTank {
   public int waterLevel() {
     return 1;
   }
-  
-  public float getTWidth(){
+
+  public float getTWidth() {
     return tWidth;
   }
 
