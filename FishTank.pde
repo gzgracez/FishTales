@@ -8,9 +8,12 @@ class FishTank {
   private int tapCount;
   private int deltaX=650;
   private PImage seaweed=loadImage("Seaweed.png");
-  private float sPos1=random(0, tWidth/4.0);
-  private float sPos2=random(tWidth/4.0, 2*tWidth/4.0);
-  private float sPos3=random(2*tWidth/4.0, tWidth-seaweed.width);
+  private float sPos1=random(0, 3.0*tWidth/12.0);
+  private float sPos2=random(5.0*tWidth/12.0, 8.0*tWidth/12.0);
+  private float sPos3=random(9.0*tWidth/12.0, tWidth-seaweed.width);
+  private float sSize1=random(0.5, 1.1);
+  private float sSize2=random(0.5, 1.1);
+  private float sSize3=random(0.5, 1.1);
 
   FishTank(String name, float w, float h) {
     this.name=name;
@@ -32,9 +35,10 @@ class FishTank {
       image(net, deltaX, 0, 200, 200);
       cleanTheTank();
     }
-    image(seaweed, sPos1, tHeight-seaweed.height);
-    image(seaweed, sPos2, tHeight-seaweed.height);
-    image(seaweed, sPos3, tHeight-seaweed.height);
+    imageMode(CORNER);
+    image(seaweed, sPos1, tHeight-sSize1*seaweed.height, sSize1*seaweed.width, sSize1*seaweed.height);
+    image(seaweed, sPos2, tHeight-sSize2*seaweed.height, sSize2*seaweed.width, sSize2*seaweed.height);
+    image(seaweed, sPos3, tHeight-sSize3*seaweed.height, sSize3*seaweed.width, sSize3*seaweed.height);
     ammoniaLevel=0;
     shakeTank();//tapTheTank
     for (int t=0; t<items.size (); t++) {

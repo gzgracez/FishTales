@@ -56,8 +56,7 @@ class Piranha extends Fish {
             } 
             else { 
               if (this.breed==false || pFish.breed==false) {
-                println("BREED");
-                println(theTank.size());
+                println("BREED " + theTank.size());
                 tank.add(new Piranha());
                 this.breed=true;
                 pFish.breed=true;
@@ -119,7 +118,6 @@ class Piranha extends Fish {
 
   public void move() {
     if (isDead==false) {//alive
-      println(follow);
       age++;
       ammonia+=0.001;
       if (follow!=null) {

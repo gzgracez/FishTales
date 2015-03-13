@@ -44,8 +44,7 @@ class Goldfish extends Fish {
             this.bounce(p);
           } else { 
             if (this.breed==false || pFish.breed==false) {
-              println("BREED");
-              println(theTank.size());
+              println("BREED " + theTank.size());
               tank.add(new Goldfish());
               this.breed=true;
               pFish.breed=true;

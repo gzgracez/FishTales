@@ -39,7 +39,6 @@ void setup() {
 }
 
 void draw() {
-  println(theTank.size());
   if (frame) theTank.showAll();
   else theTank.updateAll();
   if (clicked==true && theTank.contains(fishClick)==true) {

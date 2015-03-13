@@ -32,21 +32,23 @@ class Whale extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } else if (p instanceof Whale) {
+    } 
+    else if (p instanceof Whale) {
       if (!this.isDead && p.stillKickin()) {
         Whale pFish=(Whale)p;
         if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
           float ranNum=random(0, 1);
           if (ranNum<0.8) {
             this.bounce(p);
-          } else { 
+          } 
+          else { 
             if (this.breed==false || pFish.breed==false) {
-              println("BREED");
-              println(theTank.size());
+              println("BREED " + theTank.size());
               tank.add(new Whale());
               this.breed=true;
               pFish.breed=true;
-            } else {
+            } 
+            else {
               this.bounce(p);
             }
           }
@@ -55,13 +57,14 @@ class Whale extends Fish {
           this.bounce(p);
         } //end can't breed
       }
-      return false;
+      return false; 
     }//collide with whale
     else if (!(p instanceof Bubbles)) {
       Fish pFish=(Fish)p;
       this.changeWeight(pFish.getRadius());
       return true;
-    } else {
+    } 
+    else {
       return false;
     }
   }
@@ -71,7 +74,8 @@ class Whale extends Fish {
     if (this.fishX<tFish.fishX) {
       this.speedX=-1*random(1, 1.4);
       tFish.changeSpeeds(-1*this.speedX, 0);
-    } else {
+    } 
+    else {
       this.speedX=random(1, 1.4);
       tFish.changeSpeeds(-1*this.speedX, 0);
     }
@@ -83,12 +87,14 @@ class Whale extends Fish {
       ammonia+=0.001;
       if (fishX<=weight/2) {//bounce
         speedX=random(0.8, 1.2);
-      } else if (fishX>=600-weight/2) {
+      } 
+      else if (fishX>=600-weight/2) {
         speedX=-1*random(0.8, 1.2);
       }
       if (fishY<=weight/2) {
         speedX=pow(-1, (int)random(1, 5));
-      } else if (fishY>=600-weight/2) {
+      } 
+      else if (fishY>=600-weight/2) {
         speedX=pow(-1, (int)random(1, 5));
       }
       fishX+=speedX; 
@@ -113,7 +119,8 @@ class Whale extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      } else {//stop at the top
+      } 
+      else {//stop at the top
         speedX=0;
         speedY=0;
       }
