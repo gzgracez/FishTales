@@ -1,11 +1,11 @@
 class Piranha extends Fish {
-  Goldfish follow;
+  private Goldfish follow;
   Piranha() {
     super();//calls the Fish() constructor to initialize all the common data
     maxAge=10000;
     maxWeight=50;
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     speedX=random(-2, 2);
     if (speedX==0) speedX=random(-2, 2);
     speedY=sqrt(4-sq(speedX))*pow(-1, (int)random(1, 5));
@@ -22,8 +22,8 @@ class Piranha extends Fish {
     tank=t;
     maxAge=10000;
     maxWeight=50;
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     speedX=random(-2, 2);
     if (speedX==0) speedX=random(-2, 2);
     speedY=sqrt(4-sq(speedX))*pow(-1, (int)random(1, 5));
@@ -40,28 +40,24 @@ class Piranha extends Fish {
       else if (p1.type==2) changeWeight(-10);
       else if (p1.type==3) slow();
       return true;
-    } 
-    else if (p instanceof Piranha) {
+    } else if (p instanceof Piranha) {
       Fish pFish=(Fish)p;
       if (this.weight>=pFish.weight) {
         this.changeWeight(pFish.getRadius());
         return true;
-      } 
-      else if (this.weight==pFish.weight) {
+      } else if (this.weight==pFish.weight) {
         if (!this.isDead && p.stillKickin()) {
           if ((this.gender=="Female" && pFish.getGender()=="Male") || (this.gender=="Female" && pFish.getGender()=="Male")) {
             float ranNum=random(0, 1);
             if (ranNum<0.8) {
               this.bounce(p);
-            } 
-            else { 
+            } else { 
               if (this.breed==false || pFish.breed==false) {
                 println("BREED " + theTank.size());
                 tank.add(new Piranha());
                 this.breed=true;
                 pFish.breed=true;
-              } 
-              else {
+              } else {
                 this.bounce(p);
               }
             }
@@ -71,17 +67,17 @@ class Piranha extends Fish {
           } //end can't breed
         }
         return false;
-      } 
-      else {
+      } else {
         return false;
       }
-    } 
-    else if (p instanceof Goldfish) {
-      Fish pFish=(Fish)p;
-      this.changeWeight(pFish.getRadius());
-      return true;
-    } 
-    else return false;
+    } else if (p instanceof Goldfish) {
+      Goldfish pFish=(Goldfish)p;
+      if (!pFish.getNoPiranha()) {
+        this.changeWeight(pFish.getRadius());
+        return true;
+      }
+      else return false;
+    } else return false;
   }
 
   public void bounce(Tankable t) {
@@ -93,22 +89,19 @@ class Piranha extends Fish {
         this.speedY=-1*random(1, 3);
         float tempSpeedY=random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      } 
-      else {
+      } else {
         this.speedY=random(1, 3);
         float tempSpeedY=-1*random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
       }
-    } 
-    else {
+    } else {
       this.speedX=random(1, 3);
       float tempSpeedX=-1*random(1, 3);
       if (this.fishY<tFish.fishY) {
         this.speedY=-1*random(1, 3);
         float tempSpeedY=random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
-      } 
-      else {
+      } else {
         this.speedY=random(1, 3);
         float tempSpeedY=-1*random(1, 3);
         tFish.changeSpeeds(tempSpeedX, tempSpeedY);
@@ -130,21 +123,18 @@ class Piranha extends Fish {
         if (fishX<=weight/2) {//bounce
           speedY=random(-2, 2);
           speedX=sqrt(4-sq(speedY));
-        } 
-        else if (fishX>=600-weight/2) {
+        } else if (fishX>=tank.getTWidth()-weight/2) {
           speedY=random(-2, 2);
           speedX=-sqrt(4-sq(speedY));
         }
         if (fishY<=weight/2) {
           speedX=random(-2, 2);
           speedY=sqrt(4-sq(speedY));
-        } 
-        else if (fishY>=600-weight/2) { 
+        } else if (fishY>=tank.getTWidth()-weight/2) { 
           speedX=random(-2, 2);
           speedY=-sqrt(4-sq(speedY));
         }
-      } 
-      else {
+      } else {
         float xDiff=follow.getX()-this.fishX;
         float yDiff=follow.getY()-this.fishY;
         float scale=2/sqrt(sq(xDiff)+sq(yDiff));
@@ -173,8 +163,7 @@ class Piranha extends Fish {
         speedY=-1;
         fishX+=speedX; 
         fishY+=speedY;
-      } 
-      else {//stop at the top
+      } else {//stop at the top
         speedX=0;
         speedY=0;
       }

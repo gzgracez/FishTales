@@ -1,11 +1,12 @@
 class Goldfish extends Fish {
-  Point point=new Point(0);
+  protected Point point=new Point(0);
+  protected boolean noPiranha=false;
   Goldfish() {
     super();//calls the Fish() constructor to initialize all the common data
     maxAge=20000;
     maxWeight=30;
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     speedX=random(-3, 3);
     if (speedX==0) speedX=random(-3, 3);
     speedY=sqrt(9-sq(speedX))*pow(-1, (int)random(1, 5));
@@ -18,8 +19,8 @@ class Goldfish extends Fish {
     tank=t;
     maxAge=20000;
     maxWeight=30;
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     speedX=random(-3, 3);
     if (speedX==0) speedX=random(-3, 3);
     speedY=sqrt(9-sq(speedX))*pow(-1, (int)random(1, 5));
@@ -106,14 +107,14 @@ class Goldfish extends Fish {
       if (fishX<=weight/2) {//bounce
         speedY=random(-3, 3);
         speedX=sqrt(9-sq(speedY));
-      } else if (fishX>=600-weight/2) { 
+      } else if (fishX>=tank.getTWidth()-weight/2) { 
         speedY=random(-3, 3);
         speedX=-sqrt(9-sq(speedY));
       }
       if (fishY<=weight/2) {
         speedX=random(-3, 3);
         speedY=sqrt(9-sq(speedX));
-      } else if (fishY>=600-weight/2) {
+      } else if (fishY>=tank.getTWidth()-weight/2) {
         speedX=random(-3, 3);
         speedY=-sqrt(9-sq(speedX));
       }
@@ -145,5 +146,13 @@ class Goldfish extends Fish {
       }
     }//dead
   }//move()
+
+  public void setNoPiranha (boolean a) {
+    noPiranha=a;
+  }
+
+  public boolean getNoPiranha() {
+    return noPiranha;
+  }
 }
 

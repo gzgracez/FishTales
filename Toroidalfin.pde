@@ -2,8 +2,8 @@ class Toroidalfin extends Goldfish {
   Toroidalfin() {
     super();
     skin=color(255, 0);
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     type="Toroidalfin";
     point=new Point(0);
   }
@@ -11,8 +11,8 @@ class Toroidalfin extends Goldfish {
     super();
     tank=t;
     skin=color(255, 0);
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     type="Toroidalfin";
   }
 
@@ -97,15 +97,15 @@ class Toroidalfin extends Goldfish {
         speedY=yDiff*scale;
       }
       if (fishX<=-weight/2) {//bounce
-        fishX=600+weight/2;
+        fishX=tank.getTWidth()+weight/2;
       } 
-      else if (fishX>=600+weight/2) {
+      else if (fishX>=tank.getTWidth()+weight/2) {
         fishX=-weight/2;
       }
       if (fishY<=-weight/2) {
-        fishY=600+weight/2;
+        fishY=tank.getTWidth()+weight/2;
       } 
-      else if (fishY>=600+weight/2) {
+      else if (fishY>=tank.getTWidth()+weight/2) {
         fishY=0-weight/2;
       }
       fishX+=speedX; 

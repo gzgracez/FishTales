@@ -3,8 +3,8 @@ class Whale extends Fish {
     super();//calls the Fish() constructor to initialize all the common data
     maxAge=30000;
     maxWeight=100;
-    fishX=random(50, 550);
-    fishY=random(50, 550);
+    fishX=random(50, tank.getTWidth()-50);
+    fishY=random(50, tank.getTWidth()-50);
     speedX=pow(-1, (int)random(1, 5))*random(0.5, 1.2);
     speedY = 0;
     skin=color(random(10, 255));
@@ -88,13 +88,13 @@ class Whale extends Fish {
       if (fishX<=weight/2) {//bounce
         speedX=random(0.8, 1.2);
       } 
-      else if (fishX>=600-weight/2) {
+      else if (fishX>=tank.getTWidth()-weight/2) {
         speedX=-1*random(0.8, 1.2);
       }
       if (fishY<=weight/2) {
         speedX=pow(-1, (int)random(1, 5));
       } 
-      else if (fishY>=600-weight/2) {
+      else if (fishY>=tank.getTWidth()-weight/2) {
         speedX=pow(-1, (int)random(1, 5));
       }
       fishX+=speedX; 

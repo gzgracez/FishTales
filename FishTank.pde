@@ -7,22 +7,12 @@ class FishTank {
   private boolean tapped;
   private int tapCount;
   private int deltaX=650;
-  private PImage seaweed=loadImage("Seaweed.png");
-  private float sPos1=random(0, 3.0*tWidth/12.0);
-  private float sPos2=random(5.0*tWidth/12.0, 8.0*tWidth/12.0);
-  private float sPos3=random(9.0*tWidth/12.0, tWidth-seaweed.width);
-  private float sSize1=random(0.5, 1.1);
-  private float sSize2=random(0.5, 1.1);
-  private float sSize3=random(0.5, 1.1);
 
   FishTank(String name, float w, float h) {
     this.name=name;
     this.tWidth=w;
     this.tHeight=h;
     this.ammoniaLevel=0;
-    sPos1=random(0, 2*tWidth/6.0);
-    sPos2=random(2*tWidth/6.0, 2*tWidth/6.0);
-    sPos3=random(4*tWidth/6.0, tWidth-seaweed.width);
   }
 
   public void updateAll() {//show & move
@@ -35,10 +25,6 @@ class FishTank {
       image(net, deltaX, 0, 200, 200);
       cleanTheTank();
     }
-    imageMode(CORNER);
-    image(seaweed, sPos1, tHeight-sSize1*seaweed.height, sSize1*seaweed.width, sSize1*seaweed.height);
-    image(seaweed, sPos2, tHeight-sSize2*seaweed.height, sSize2*seaweed.width, sSize2*seaweed.height);
-    image(seaweed, sPos3, tHeight-sSize3*seaweed.height, sSize3*seaweed.width, sSize3*seaweed.height);
     ammoniaLevel=0;
     shakeTank();//tapTheTank
     for (int t=0; t<items.size (); t++) {
@@ -89,12 +75,10 @@ class FishTank {
                 if (tFish instanceof Goldfish) {
                   tFish.speedX=3*(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=3*(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } 
-                else if (tFish instanceof Whale) {
+                } else if (tFish instanceof Whale) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
-                } 
-                else if (tFish instanceof Piranha) {
+                } else if (tFish instanceof Piranha) {
                   tFish.speedX=(p.pX-tFish.getX())/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                   tFish.speedY=(p.pY-tFish.fishY)/sqrt(sq(p.getX()-tFish.getX())+sq(p.getY()-tFish.getY()));
                 }
@@ -133,16 +117,20 @@ class FishTank {
     }
   }
 
+  public void setUp() {
+    for (int i=1; i<4; i++) items.add(new Seaweed(i));
+  }
+
   public float getAmmoniaLevel() { 
     return ammoniaLevel;
   }
 
-  public int waterLevel() {
-    return 1;
-  }
-
   public float getTWidth() {
     return tWidth;
+  }
+
+  public float getTHeight() {
+    return tHeight;
   }
 
   public void cleanTheTank() {
@@ -156,8 +144,7 @@ class FishTank {
           items.remove(i);
           i--;
         }
-      } 
-      else {
+      } else {
         Tankable thing=items.get(i);
         if (thing.getY()>=-thing.getRadius() && thing.getY()<=100-thing.getRadius() && thing.getX()<=deltaX && thing.getX()>=deltaX-50) {
           items.remove(i);
@@ -179,6 +166,7 @@ class FishTank {
     for (int i=items.size ()-1; i>=0; i--) {
       items.remove(i);
     }
+    this.setUp();
   }
 
   public boolean add(Tankable t) {
@@ -208,8 +196,7 @@ class FishTank {
     if (goldfish.size()!=0) {
       int tempIndex=(int)random(0, goldfish.size());
       return goldfish.get(tempIndex);
-    } 
-    else {
+    } else {
       return null;
     }
   }
@@ -233,8 +220,7 @@ class FishTank {
         }
       }
       return (Goldfish)close;
-    } 
-    else return null;
+    } else return null;
   }
 
   public void shakeTank() {//translating for tapTheTank

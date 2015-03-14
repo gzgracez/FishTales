@@ -6,19 +6,21 @@
  Tail that grows and flaps along with the fish & follows the direction of movement
  Bubbles come out of fish, then float to the top of the tank (They also move left & right)
  The closer a Fish is to maxAge, the more likely that "Tapping the Tank" will kill it
+ "Tap the Tank" with key "t" and bubbles will appear at mouse position
+ Bubbles appear using the Gaussian distribution
  "Clean the Tank" (net to get rid of dead fish)-fish movement produces ammonia; if not cleaned, fish start gradually dying after a set amount of time
  Circular buttons
  Gender attribute added to the Fish class; when a male & female of the same breed meet, there is a 20% chance that a new fish of that breed is born
  Fish follow food & poison
  "Slowness" pellets
- Pellets fall
+ Pellets fall at random speeds
  Click on fish for more info (Name, Species, Gender, Age, Weight, Alive/Death & How)
  Drag the fish
  Keyboard (corresponding keys are written on the button; space bar to pause)
- Reset button to completely reset the screen
+ Reset button to completely reset the screen (and regenerate seaweed)
  Tap the tank shakes the tank (in addition to making the fish go in opposite directions)
- Bubbles generate at mouse position (if mouse is on the screen) when tank is tapped
- Bubbles appear using the Gaussian distribution
+ Seaweed generate at random positions and random sizes and wave in the tank (resetting the tank resets the seaweed as well)
+ Goldfish in the seaweed have a probability of not being eaten by the piranhas
  */
 import java.util.*;
 ArrayList <Fish> fishTank = new ArrayList <Fish>();
@@ -34,8 +36,8 @@ void setup() {
   size(800, 600);
   background (0, 150, 255);
   net=loadImage("net2.png");
-  //seaweed=loadImage("Seaweed.png");
   theTank=new FishTank("theTank", width-200, height);
+  theTank.setUp();
 }
 
 void draw() {
@@ -57,26 +59,21 @@ void keyPressed() {
   if (key==' ') {//pause
     if (frame==false) frame=true;
     else frame=false;
-  } 
-  else if (key=='f') {//Sprinkle food
+  } else if (key=='f') {//Sprinkle food
     for (int i=0; i<8; i++) theTank.add(new Pellet(1));
-  } 
-  else if (key=='p') {//Sprinkle poison
+  } else if (key=='p') {//Sprinkle poison
     for (int i=0; i<8; i++) theTank.add(new Pellet(2));
-  } 
-  else if (key=='t') theTank.tapTheTank(); 
+  } else if (key=='t') theTank.tapTheTank(); 
   else if (key=='g') theTank.add(new Goldfish());//add goldfish
   else if (key=='w') theTank.add(new Whale());//add whale
   else if (key=='h') theTank.add(new Piranha());//add piranha
   else if (key=='d') theTank.add(new Toroidalfin());//add toroidalfin
   else if (key=='s') {//Sprinkle slowness
     for (int i=0; i<8; i++) theTank.add(new Pellet(3));
-  } 
-  else if (key=='c') {//clean the tank
+  } else if (key=='c') {//clean the tank
     theTank.deltaX=0;
     theTank.cleanTheTank();
-  } 
-  else if (key=='r') {//Reset
+  } else if (key=='r') {//Reset
     theTank.reset();
   }
 }
@@ -184,10 +181,3 @@ void drawButtons() {
   fill(0);
 }
 
-/*void drawWaterMill() {
- stroke(0);
- noFill();
- ellipse(theTank.tWidth/6, 5*theTank.tHeight/6, 80, 100);
- 
- ellipse(theTank.tWidth/6-25, 5*theTank.tHeight/6+25, 80, 100);
- }*/
