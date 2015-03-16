@@ -8,14 +8,14 @@ class Seaweed implements Tankable {
 
   Seaweed() {
     for (int i=1; i<9; i++) {
-      seaweed[i-1]=loadImage("Seaweed"+i + ".png");
+      seaweed[i-1]=loadImage("img/Seaweed"+i + ".png");
     }
     posX=random(0, 3.0*tank.getTWidth()/12.0);
     sizeScale=random(0.5, 1.1);
   }
   Seaweed(int x) {
     for (int i=1; i<9; i++) {
-      seaweed[i-1]=loadImage("Seaweed"+i + ".png");
+      seaweed[i-1]=loadImage("img/Seaweed"+i + ".png");
     }
     if (x==1) {
       posX=random(0, 3.0*tank.getTWidth()/12.0);
@@ -28,7 +28,7 @@ class Seaweed implements Tankable {
   }
   Seaweed(FishTank tank) {
     for (int i=1; i<9; i++) {
-      seaweed[i-1]=loadImage("Seaweed"+i + ".png");
+      seaweed[i-1]=loadImage("img/Seaweed"+i + ".png");
     }
     posX=random(0, 3.0*tank.getTWidth()/12.0);
     sizeScale=random(0.5, 1.1);

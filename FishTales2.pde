@@ -35,7 +35,7 @@ PImage net;
 void setup() {
   size(800, 600);
   background (0, 150, 255);
-  net=loadImage("net2.png");
+  net=loadImage("img/net2.png");
   theTank=new FishTank("theTank", width-200, height);
   theTank.setUp();
 }

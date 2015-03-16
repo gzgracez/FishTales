@@ -24,5 +24,6 @@
 
 ![details](/details.png)
  _Displaying details of the selected fish_
+ 
 ![clean](/clean.png)
  _Cleaning the fish tank_
